@@ -31,6 +31,7 @@ namespace MvcEasyOrderSystem.Controllers
             shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
 
             shoppingCartLogic.AddToCart(mealId);
+            shoppingCartLogic.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -114,32 +115,36 @@ namespace MvcEasyOrderSystem.Controllers
         ////
         //// GET: /ShoppingCart/Delete/5
 
-        //public ActionResult Delete(int id = 0)
-        //{
-        //    ShoppingCart shoppingcart = shoppingCartRepo.ShoppingCarts.Find(id);
-        //    if (shoppingcart == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(shoppingcart);
-        //}
+        public ActionResult Delete(int shoppingCartId = 0)
+        {
+            shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
+            ShoppingCart shoppingcart = shoppingCartLogic.GetShoppingCartUsingShoppingCartId(shoppingCartId);
 
-        ////
-        //// POST: /ShoppingCart/Delete/5
+            if (shoppingcart == null)
+            {
+                return HttpNotFound();
+            }
+            return View(shoppingcart);
+        }
 
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    ShoppingCart shoppingcart = shoppingCartRepo.ShoppingCarts.Find(id);
-        //    shoppingCartRepo.ShoppingCarts.Remove(shoppingcart);
-        //    shoppingCartRepo.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        //
+        // POST: /ShoppingCart/Delete/5
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    shoppingCartRepo.Dispose();
-        //    base.Dispose(disposing);
-        //}
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int shoppingCartId)
+        {
+            shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
+
+            shoppingCartLogic.RemoveFromCart(shoppingCartId);
+
+            shoppingCartLogic.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            shoppingCartRepo.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

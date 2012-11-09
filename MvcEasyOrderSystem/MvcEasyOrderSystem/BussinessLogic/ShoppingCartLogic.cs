@@ -11,7 +11,7 @@ namespace MvcEasyOrderSystem.BussinessLogic
     public class ShoppingCartLogic
     {
         const string userIdSessionKey = "UserId";
-        public string ShoppingCartId { get; set; }
+        public string UserId { get; set; }
         private IGenericRepository<ShoppingCart> shoppingCartRepo;
         private IGenericRepository<Meal> mealRepo;
 
@@ -48,20 +48,20 @@ namespace MvcEasyOrderSystem.BussinessLogic
         public static ShoppingCartLogic GetShoppingCart(HttpContextBase inContext)
         {
             ShoppingCartLogic cart = new ShoppingCartLogic();
-            cart.ShoppingCartId = cart.GetUserId(inContext);
+            cart.UserId = cart.GetUserId(inContext);
             return cart;
         }
 
         public IEnumerable<ShoppingCart> GetShoppingCartItems()
         {
-            var result = shoppingCartRepo.GetWithFilterAndOrder(x => x.UserId == ShoppingCartId);
+            var result = shoppingCartRepo.GetWithFilterAndOrder(x => x.UserId == UserId);
             return result;
         }
 
         public void AddToCart(int mealId)
         {
             ShoppingCart result = shoppingCartRepo.GetSingleEntity(
-                x => x.UserId == ShoppingCartId && x.MealId == mealId);
+                x => x.UserId == UserId && x.MealId == mealId);
 
             if (result == null)
             {
@@ -72,7 +72,7 @@ namespace MvcEasyOrderSystem.BussinessLogic
                     MealName = mealDetail.MealName,
                     Quantity = 1,
                     UnitPrice = mealDetail.Price,
-                    UserId = ShoppingCartId,
+                    UserId = UserId,
                 });
 
             }
@@ -82,8 +82,28 @@ namespace MvcEasyOrderSystem.BussinessLogic
                 shoppingCartRepo.Update(result);
             }
 
+        }
+
+        public void SaveChanges()
+        {
             shoppingCartRepo.SaveChanges();
         }
+
+        public void RemoveFromCart(int shoppingCartId)
+        {
+            ShoppingCart result = GetShoppingCartUsingShoppingCartId(shoppingCartId);
+
+            shoppingCartRepo.Delete(result);
+
+
+        }
+
+        public ShoppingCart GetShoppingCartUsingShoppingCartId(int shoppingCartId)
+        {
+            return (shoppingCartRepo.GetSingleEntity
+                 (x => x.ShoppingCartId == shoppingCartId));
+        }
+
 
     }
 }
