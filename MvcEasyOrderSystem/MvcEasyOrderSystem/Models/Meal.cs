@@ -9,7 +9,7 @@ namespace MvcEasyOrderSystem.Models
 {
     public class Meal
     {
-    
+
         public int MealId { get; set; }
 
         [DisplayName("餐名")]

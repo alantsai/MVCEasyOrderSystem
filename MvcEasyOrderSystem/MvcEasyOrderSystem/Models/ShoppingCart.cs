@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,9 +11,25 @@ namespace MvcEasyOrderSystem.Models
     {
         public int ShoppingCartId { get; set; }
         public int MealId { get; set; }
+
+        [DisplayName("數量")]
         public int Quantity { get; set; }
-        public decimal Price { get; set; }
+
+        [DisplayName("單價")]
+        public decimal UnitPrice { get; set; }
+
+        [DisplayName("餐名")]
         public string MealName { get; set; }
-        public int UserId { get; set; }
+
+        [DisplayName("總額")]
+        public decimal FullPrice
+        {
+            get
+            {
+                return Quantity * UnitPrice;
+            }
+        }
+
+        public string UserId { get; set; }
     }
 }

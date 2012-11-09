@@ -6,27 +6,52 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcEasyOrderSystem.Models;
+using MvcEasyOrderSystem.Models.Repositry;
+using MvcEasyOrderSystem.BussinessLogic;
 
 namespace MvcEasyOrderSystem.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private EOSystemContex db = new EOSystemContex();
+        private IGenericRepository<ShoppingCart> shoppingCartRepo;
+        private ShoppingCartLogic shoppingCartLogic;
+
+        public ShoppingCartController(IGenericRepository<ShoppingCart> inShoppingCartRepo)
+        {
+            shoppingCartRepo = inShoppingCartRepo;
+        }
+
+        public ShoppingCartController()
+            :this(new GenericRepository<ShoppingCart>())
+        {
+        }
+
+        public ActionResult AddToCart(int mealId)
+        {
+            shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
+
+            shoppingCartLogic.AddToCart(mealId);
+
+            return RedirectToAction("Index");
+        }
 
         //
         // GET: /ShoppingCart/
 
         public ActionResult Index()
         {
-            return View(db.ShoppingCarts.ToList());
+            shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
+
+            return View(shoppingCartLogic.GetShoppingCartItems());
         }
 
         //
         // GET: /ShoppingCart/Details/5
 
-        public ActionResult Details(int id = 0)
+        public ActionResult Details(int shoppingCartId = 0)
         {
-            ShoppingCart shoppingcart = db.ShoppingCarts.Find(id);
+            ShoppingCart shoppingcart = shoppingCartRepo.GetSingleEntity
+                (x => x.ShoppingCartId == shoppingCartId);
             if (shoppingcart == null)
             {
                 return HttpNotFound();
@@ -34,87 +59,87 @@ namespace MvcEasyOrderSystem.Controllers
             return View(shoppingcart);
         }
 
-        //
-        // GET: /ShoppingCart/Create
+        ////
+        //// GET: /ShoppingCart/Create
 
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        //
-        // POST: /ShoppingCart/Create
+        ////
+        //// POST: /ShoppingCart/Create
 
-        [HttpPost]
-        public ActionResult Create(ShoppingCart shoppingcart)
-        {
-            if (ModelState.IsValid)
-            {
-                db.ShoppingCarts.Add(shoppingcart);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //public ActionResult Create(ShoppingCart shoppingcart)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        shoppingCartRepo.ShoppingCarts.Add(shoppingcart);
+        //        shoppingCartRepo.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(shoppingcart);
-        }
+        //    return View(shoppingcart);
+        //}
 
-        //
-        // GET: /ShoppingCart/Edit/5
+        ////
+        //// GET: /ShoppingCart/Edit/5
 
-        public ActionResult Edit(int id = 0)
-        {
-            ShoppingCart shoppingcart = db.ShoppingCarts.Find(id);
-            if (shoppingcart == null)
-            {
-                return HttpNotFound();
-            }
-            return View(shoppingcart);
-        }
+        //public ActionResult Edit(int id = 0)
+        //{
+        //    ShoppingCart shoppingcart = shoppingCartRepo.ShoppingCarts.Find(id);
+        //    if (shoppingcart == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(shoppingcart);
+        //}
 
-        //
-        // POST: /ShoppingCart/Edit/5
+        ////
+        //// POST: /ShoppingCart/Edit/5
 
-        [HttpPost]
-        public ActionResult Edit(ShoppingCart shoppingcart)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(shoppingcart).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(shoppingcart);
-        }
+        //[HttpPost]
+        //public ActionResult Edit(ShoppingCart shoppingcart)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        shoppingCartRepo.Entry(shoppingcart).State = EntityState.Modified;
+        //        shoppingCartRepo.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(shoppingcart);
+        //}
 
-        //
-        // GET: /ShoppingCart/Delete/5
+        ////
+        //// GET: /ShoppingCart/Delete/5
 
-        public ActionResult Delete(int id = 0)
-        {
-            ShoppingCart shoppingcart = db.ShoppingCarts.Find(id);
-            if (shoppingcart == null)
-            {
-                return HttpNotFound();
-            }
-            return View(shoppingcart);
-        }
+        //public ActionResult Delete(int id = 0)
+        //{
+        //    ShoppingCart shoppingcart = shoppingCartRepo.ShoppingCarts.Find(id);
+        //    if (shoppingcart == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(shoppingcart);
+        //}
 
-        //
-        // POST: /ShoppingCart/Delete/5
+        ////
+        //// POST: /ShoppingCart/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ShoppingCart shoppingcart = db.ShoppingCarts.Find(id);
-            db.ShoppingCarts.Remove(shoppingcart);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    ShoppingCart shoppingcart = shoppingCartRepo.ShoppingCarts.Find(id);
+        //    shoppingCartRepo.ShoppingCarts.Remove(shoppingcart);
+        //    shoppingCartRepo.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    shoppingCartRepo.Dispose();
+        //    base.Dispose(disposing);
+        //}
     }
 }
