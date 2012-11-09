@@ -1,0 +1,50 @@
+﻿@model MvcEasyOrderSystem.Models.ShoppingCart
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>ShoppingCart</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MealId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MealId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Quantity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Quantity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Price)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Price)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MealName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MealName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserId)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ShoppingCartId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

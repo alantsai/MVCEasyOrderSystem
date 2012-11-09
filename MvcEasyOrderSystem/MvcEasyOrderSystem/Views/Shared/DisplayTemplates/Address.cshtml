@@ -1,0 +1,22 @@
+﻿@model MvcEasyOrderSystem.Models.Address
+
+<fieldset>
+    <legend>Supplier</legend>
+
+
+    @Model.AddCity
+
+
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddDistrict)
+    </div>
+
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddFull)
+    </div>
+
+
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PostCode)
+    </div>
+</fieldset>
