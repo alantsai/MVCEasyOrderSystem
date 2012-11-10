@@ -58,6 +58,18 @@ namespace MvcEasyOrderSystem.BussinessLogic
             return result;
         }
 
+        public decimal GetShoppingCartTotalPrice(IEnumerable<ShoppingCart> items)
+        {
+            decimal totalPrice = 0;
+
+            foreach (var item in items)
+            {
+                totalPrice = totalPrice + item.FullPrice;
+            }
+
+            return totalPrice;
+        }
+
         public void AddToCart(int mealId)
         {
             ShoppingCart result = shoppingCartRepo.GetSingleEntity(

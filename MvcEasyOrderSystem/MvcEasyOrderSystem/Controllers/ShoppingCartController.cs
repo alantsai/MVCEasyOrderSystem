@@ -43,7 +43,13 @@ namespace MvcEasyOrderSystem.Controllers
         {
             shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
 
-            return View(shoppingCartLogic.GetShoppingCartItems());
+            var viewModel = new ViewModels.ShoppingCartViewModel ();
+
+            viewModel.CartItems = shoppingCartLogic.GetShoppingCartItems().ToList();
+               viewModel.TotalPrice = shoppingCartLogic.GetShoppingCartTotalPrice(viewModel.CartItems);
+            
+
+            return View(viewModel);
         }
 
         //
