@@ -180,15 +180,42 @@
     <Compile Include="Migrations\201211091124194_ini.Designer.cs">
       <DependentUpon>201211091124194_ini.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211111034586_Order.cs" />
+    <Compile Include="Migrations\201211111034586_Order.Designer.cs">
+      <DependentUpon>201211111034586_Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201211111055074_Order1.cs" />
+    <Compile Include="Migrations\201211111055074_Order1.Designer.cs">
+      <DependentUpon>201211111055074_Order1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201211111132246_Order_TPH.cs" />
+    <Compile Include="Migrations\201211111132246_Order_TPH.Designer.cs">
+      <DependentUpon>201211111132246_Order_TPH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201211111154404_Order_TPH1.cs" />
+    <Compile Include="Migrations\201211111154404_Order_TPH1.Designer.cs">
+      <DependentUpon>201211111154404_Order_TPH1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201211111158222_Order_TPH2.cs" />
+    <Compile Include="Migrations\201211111158222_Order_TPH2.Designer.cs">
+      <DependentUpon>201211111158222_Order_TPH2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CollectionMethod.cs" />
+    <Compile Include="Models\CollectionOrder.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\DeliveryOrder.cs" />
     <Compile Include="Models\Meal.cs" />
     <Compile Include="Models\EOSystemContex.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetial.cs" />
+    <Compile Include="Models\PaymentMethod.cs" />
     <Compile Include="Models\Repositry\GenericRepository.cs" />
     <Compile Include="Models\Repositry\IGenericRepository.cs" />
+    <Compile Include="Models\Status.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -337,6 +364,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201211091124194_ini.resx">
       <DependentUpon>201211091124194_ini.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211111034586_Order.resx">
+      <DependentUpon>201211111034586_Order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211111055074_Order1.resx">
+      <DependentUpon>201211111055074_Order1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211111132246_Order_TPH.resx">
+      <DependentUpon>201211111132246_Order_TPH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211111154404_Order_TPH1.resx">
+      <DependentUpon>201211111154404_Order_TPH1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211111158222_Order_TPH2.resx">
+      <DependentUpon>201211111158222_Order_TPH2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

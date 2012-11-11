@@ -10,18 +10,31 @@ namespace MvcEasyOrderSystem.Models
     public class EOSystemContex : DbContext
     {
 
-        public DbSet<Category> Category { get; set; }
-        public DbSet<Meal> Meal { get; set; }
-        public DbSet<Supplier> Supplier { get; set; }
 
-        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ShoppingCart> ShoppingCart { get; set; }
+
+
+        public DbSet<Category> Category { get; set; }
+        public DbSet<CollectionMethod> CollectionMethod { get; set; }
         public DbSet<Customer> Customer { get; set; }
+
+        public DbSet<Meal> Meal { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderDetial> OrderDetial { get; set; }
+        public DbSet<PaymentMethod> PaymentMethod { get; set; }
+        public DbSet<Status> Status { get; set; }
+        public DbSet<Supplier> Supplier { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            
+
+            modelBuilder.Entity<Order>()
+                .Map<DeliveryOrder>(s => s.Requires("DiscriminatorCollectionId").HasValue(1))
+                .Map<CollectionOrder>(s => s.Requires("DiscriminatorCollectionId").HasValue(2))
+                .ToTable("Order");
+
         }
 
 
