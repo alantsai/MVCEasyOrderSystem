@@ -10,6 +10,8 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using MvcEasyOrderSystem.Filters;
 using MvcEasyOrderSystem.Models;
+using MvcEasyOrderSystem.Models.Repositry;
+using MvcEasyOrderSystem.BussinessLogic;
 
 namespace MvcEasyOrderSystem.Controllers
 {
@@ -17,6 +19,25 @@ namespace MvcEasyOrderSystem.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        IGenericRepository<Customer> customerRepo;
+
+        public AccountController(IGenericRepository<Customer> inCutomerRepo)
+        {
+            customerRepo = inCutomerRepo;
+        }
+
+        public AccountController()
+            : this(new GenericRepository<Customer>())
+        {
+        }
+
+        public void MigrateShoppingCart(string userId)
+        {
+            var cart = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
+            cart.MigrateShoppingCartUserIdToUserId(userId);
+            Session[ShoppingCartLogic.UserIdSessionKey] = userId;
+        }
+
         //
         // GET: /Account/Login
 
@@ -37,6 +58,7 @@ namespace MvcEasyOrderSystem.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
+                MigrateShoppingCart(WebSecurity.GetUserId(model.UserName).ToString());
                 return RedirectToLocal(returnUrl);
             }
 
@@ -80,7 +102,17 @@ namespace MvcEasyOrderSystem.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    //WebSecurity.Login(model.UserName, model.Password);
+
+
+                    Roles.AddUserToRole(model.UserName, "User");
+
+
+                    model.Customer.UserId = WebSecurity.GetUserId(model.UserName);
+                    customerRepo.Insert(model.Customer);
+                    customerRepo.SaveChanges();
+
+
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

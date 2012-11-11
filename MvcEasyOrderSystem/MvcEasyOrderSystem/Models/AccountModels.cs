@@ -72,6 +72,12 @@ namespace MvcEasyOrderSystem.Models
 
     public class RegisterModel
     {
+        public Customer Customer { get; set; }
+        public RegisterModel()
+        {
+            Customer = new Customer();
+        }
+
         [Required]
         [Display(Name = "使用者名稱")]
         public string UserName { get; set; }

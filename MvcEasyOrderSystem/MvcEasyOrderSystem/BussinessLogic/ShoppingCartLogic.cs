@@ -10,7 +10,7 @@ namespace MvcEasyOrderSystem.BussinessLogic
 {
     public class ShoppingCartLogic
     {
-        const string userIdSessionKey = "UserId";
+        public const string UserIdSessionKey = "UserId";
         public string UserId { get; set; }
         private IGenericRepository<ShoppingCart> shoppingCartRepo;
         private IGenericRepository<Meal> mealRepo;
@@ -30,18 +30,18 @@ namespace MvcEasyOrderSystem.BussinessLogic
 
         public string GetUserId(HttpContextBase context)
         {
-            if (context.Session[userIdSessionKey] == null)
+            if (context.Session[UserIdSessionKey] == null)
             {
                 if (string.IsNullOrEmpty(context.User.Identity.Name))
                 {
-                    context.Session[userIdSessionKey] = Guid.NewGuid().ToString();
+                    context.Session[UserIdSessionKey] = Guid.NewGuid().ToString();
                 }
                 else
                 {
-                    context.Session[userIdSessionKey] = context.User.Identity.Name.ToString();
+                    context.Session[UserIdSessionKey] = context.User.Identity.Name.ToString();
                 }
             }
-            return context.Session[userIdSessionKey].ToString();
+            return context.Session[UserIdSessionKey].ToString();
 
         }
 
@@ -114,6 +114,19 @@ namespace MvcEasyOrderSystem.BussinessLogic
         {
             return (shoppingCartRepo.GetSingleEntity
                  (x => x.ShoppingCartId == shoppingCartId));
+        }
+
+        public void MigrateShoppingCartUserIdToUserId(string inUserId)
+        {
+            var cart = shoppingCartRepo.GetWithFilterAndOrder
+                (x => x.UserId == UserId) ;
+
+            foreach (var item in cart)
+            {
+                item.UserId = inUserId;
+            }
+
+            shoppingCartRepo.SaveChanges();
         }
 
 

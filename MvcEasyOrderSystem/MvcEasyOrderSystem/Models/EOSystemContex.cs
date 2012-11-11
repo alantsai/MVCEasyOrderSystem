@@ -15,6 +15,7 @@ namespace MvcEasyOrderSystem.Models
         public DbSet<Supplier> Supplier { get; set; }
 
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<Customer> Customer { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

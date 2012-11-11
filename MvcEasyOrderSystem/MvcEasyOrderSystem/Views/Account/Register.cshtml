@@ -28,6 +28,56 @@
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
         </ol>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Customer.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Customer.FirstName)
+            @Html.ValidationMessageFor(model => model.Customer.FirstName)
+        </div>
+
+                <div class="editor-label">
+            @Html.LabelFor(model => model.Customer.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Customer.LastName)
+            @Html.ValidationMessageFor(model => model.Customer.LastName)
+        </div>
+
+                <div class="editor-label">
+            @Html.LabelFor(model => model.Customer.HomeNo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Customer.HomeNo)
+            @Html.ValidationMessageFor(model => model.Customer.HomeNo)
+        </div>
+
+                <div class="editor-label">
+            @Html.LabelFor(model => model.Customer.MobileNo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Customer.MobileNo)
+            @Html.ValidationMessageFor(model => model.Customer.MobileNo)
+        </div>
+
+                <div class="editor-label">
+            @Html.LabelFor(model => model.Customer.Address)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Customer.Address)
+            @Html.ValidationMessageFor(model => model.Customer.Address)
+        </div>
+
+                <div class="editor-label">
+            @Html.LabelFor(model => model.Customer.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Customer.Email)
+            @Html.ValidationMessageFor(model => model.Customer.Email)
+        </div>
+
+
         <input type="submit" value="註冊" />
     </fieldset>
 }
