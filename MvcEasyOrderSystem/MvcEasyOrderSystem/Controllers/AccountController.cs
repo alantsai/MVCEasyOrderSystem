@@ -12,6 +12,10 @@ using MvcEasyOrderSystem.Filters;
 using MvcEasyOrderSystem.Models;
 using MvcEasyOrderSystem.Models.Repositry;
 using MvcEasyOrderSystem.BussinessLogic;
+using System.Net.Mail;
+using System.Net;
+using MvcEasyOrderSystem.ViewModels;
+using System.Configuration;
 
 namespace MvcEasyOrderSystem.Controllers
 {
@@ -31,12 +35,68 @@ namespace MvcEasyOrderSystem.Controllers
         {
         }
 
+        public void SentEmail(string desAddress, string title, string body)
+        {
+            var client = new SmtpClient("smtp.gmail.com", 587)
+              {
+                Credentials = new NetworkCredential("easyordersystem@gmail.com", "1qaz@WSX#EDC"),
+                EnableSsl = true
+              };
+            client.Send("easyordersystem@gmail.com", desAddress,title, body);
+        }
+
         public void MigrateShoppingCart(string userId)
         {
             var cart = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
             cart.MigrateShoppingCartUserIdToUserId(userId);
-            Session[ShoppingCartLogic.UserIdSessionKey] = userId;
+            Session[ConfigurationManager.AppSettings["UserIdSession"]] = userId;
         }
+
+        //TODO: forget password
+        #region ForgetPassword
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ForgotPassword(ForgetPasswordViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = viewModel.UserName;
+
+                var customer = customerRepo.GetSingleEntity(x => x.UserId == userId);
+                if (customer != null)
+                {
+                    string title = "密碼回復";
+                    string body = "請使用以下字串來重設密碼:\n" +
+                        Server.MapPath("~/Account/ResetPassword") + "?resetToken=" + WebSecurity.GeneratePasswordResetToken(viewModel.UserName);
+
+                    SentEmail(customer.Email, title, body);
+
+                    return RedirectToAction("ResetPassword", new { userName = viewModel.UserName });
+                }
+
+            }
+
+            ModelState.AddModelError("", "所提供的使用者名稱和email不符。");
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string resetToken)
+        {
+            string password = "123";
+            bool result = WebSecurity.ResetPassword(resetToken, password);
+            return View(password);
+        } 
+        #endregion
+
+        
 
         //
         // GET: /Account/Login
@@ -58,7 +118,7 @@ namespace MvcEasyOrderSystem.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                MigrateShoppingCart(WebSecurity.GetUserId(model.UserName).ToString());
+                MigrateShoppingCart(model.UserName);
                 return RedirectToLocal(returnUrl);
             }
 
@@ -74,8 +134,8 @@ namespace MvcEasyOrderSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            Session[ConfigurationManager.AppSettings["UserIdSession"]] = null;
             WebSecurity.Logout();
-
             return RedirectToAction("Index", "Home");
         }
 
@@ -102,13 +162,14 @@ namespace MvcEasyOrderSystem.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    //WebSecurity.Login(model.UserName, model.Password);
+                    WebSecurity.Login(model.UserName, model.Password);
 
+                    MigrateShoppingCart(model.UserName);
 
                     Roles.AddUserToRole(model.UserName, "User");
 
 
-                    model.Customer.UserId = WebSecurity.GetUserId(model.UserName);
+                    model.Customer.UserId = model.UserName;
                     customerRepo.Insert(model.Customer);
                     customerRepo.SaveChanges();
 

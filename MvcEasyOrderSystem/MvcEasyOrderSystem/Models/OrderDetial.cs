@@ -15,7 +15,7 @@ namespace MvcEasyOrderSystem.Models
         [Key, Column(Order = 2)]
         public int MealId { get; set; }
         public int Quantity { get; set; }
-        public decimal TotalPrice { get; set; }
+        public decimal UnitPrice { get; set; }
 
         public virtual Meal Meal { get; set; }
         public virtual Order Order { get; set; }

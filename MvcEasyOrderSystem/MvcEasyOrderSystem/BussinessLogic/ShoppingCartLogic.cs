@@ -5,25 +5,32 @@ using System.Web;
 using MvcEasyOrderSystem.Models;
 using MvcEasyOrderSystem.Models.Repositry;
 using System.Web.Mvc;
+using System.Configuration;
+using WebMatrix.WebData;
+using MvcEasyOrderSystem.Controllers;
 
 namespace MvcEasyOrderSystem.BussinessLogic
 {
     public class ShoppingCartLogic
     {
-        public const string UserIdSessionKey = "UserId";
+        public string UserIdSessionKey = ConfigurationManager.AppSettings["UserIdSession"];
         public string UserId { get; set; }
         private IGenericRepository<ShoppingCart> shoppingCartRepo;
         private IGenericRepository<Meal> mealRepo;
+        private IGenericRepository<OrderDetial> orderDetailRepo;
 
         private ShoppingCartLogic(IGenericRepository<ShoppingCart> inShoppingCartRepo,
-            IGenericRepository<Meal> inMealRepo)
+            IGenericRepository<Meal> inMealRepo,
+            IGenericRepository<OrderDetial> inOrderDetailRepo)
         {
             shoppingCartRepo = inShoppingCartRepo;
             mealRepo = inMealRepo;
+            orderDetailRepo = inOrderDetailRepo;
         }
 
         private ShoppingCartLogic()
-            : this(new GenericRepository<ShoppingCart>(), new GenericRepository<Meal>())
+            : this(new GenericRepository<ShoppingCart>(), new GenericRepository<Meal>(),
+            new GenericRepository<OrderDetial>())
         {
         }
 
@@ -38,7 +45,8 @@ namespace MvcEasyOrderSystem.BussinessLogic
                 }
                 else
                 {
-                    context.Session[UserIdSessionKey] = context.User.Identity.Name.ToString();
+                    
+                    context.Session[UserIdSessionKey] =context.User.Identity.Name.ToString();
                 }
             }
             return context.Session[UserIdSessionKey].ToString();
@@ -110,12 +118,52 @@ namespace MvcEasyOrderSystem.BussinessLogic
 
         }
 
+        public void EmptyCart()
+        {
+            var cartItems = shoppingCartRepo.GetWithFilterAndOrder(x => x.UserId == UserId);
+
+            foreach (var item in cartItems)
+            {
+                shoppingCartRepo.Delete(item);
+            }
+
+            shoppingCartRepo.SaveChanges();
+
+        }
+
         public ShoppingCart GetShoppingCartUsingShoppingCartId(int shoppingCartId)
         {
             return (shoppingCartRepo.GetSingleEntity
                  (x => x.ShoppingCartId == shoppingCartId));
         }
 
+        //TODO:Added
+        public decimal ShoppingCartToOrderDetails(Order order)
+        {
+            var cartItems = GetShoppingCartItems();
+
+            decimal totalPrice = 0;
+
+            foreach(var item in cartItems)
+            {
+                var orderDetail = new OrderDetial()
+                {
+                    MealId = item.MealId,
+                    OrderId = order.OrderId,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice
+                };
+
+                totalPrice += (orderDetail.UnitPrice * orderDetail.Quantity);
+                orderDetailRepo.Insert(orderDetail);
+            }
+
+            orderDetailRepo.SaveChanges();
+            EmptyCart();
+
+            return totalPrice;
+        }
+        
         public void MigrateShoppingCartUserIdToUserId(string inUserId)
         {
             var cart = shoppingCartRepo.GetWithFilterAndOrder

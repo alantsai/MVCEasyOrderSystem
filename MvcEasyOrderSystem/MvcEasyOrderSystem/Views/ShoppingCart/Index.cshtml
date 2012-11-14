@@ -9,60 +9,14 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CartItems[0].MealId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CartItems[0].Quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CartItems[0].UnitPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CartItems[0].MealName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CartItems[0].UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CartItems[0].FullPrice)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model.CartItems) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MealId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MealName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullPrice)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ShoppingCartId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ShoppingCartId }) |
-            @Html.ActionLink("Delete", "Delete", new { shoppingCartId=item.ShoppingCartId })
-        </td>
-    </tr>
+@{
+    Html.RenderPartial("_ShoppingCart", Model);
 }
 
-        <tr>
-        <td><text>總額:</text>@Model.TotalPrice</td>
-    </tr>
 
-
-</table>
+@if (@Model.CartItems.Count != 0)
+{
+    @Html.ActionLink("清空購物車", "EmptyShoppingCart", new {userId = @Model.CartItems[0].UserId })
+    @Html.ActionLink("買單", "ProcedToCheckout","Order", null, null)
+}

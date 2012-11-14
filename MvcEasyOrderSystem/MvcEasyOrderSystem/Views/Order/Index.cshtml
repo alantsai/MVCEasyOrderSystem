@@ -1,0 +1,134 @@
+﻿@model IEnumerable<MvcEasyOrderSystem.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+    
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequireDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReadyDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentMethod.PaymentMethodName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CollectionMethod.CollectionMethodName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status.StatusName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryStartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryEndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address_AddCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address_AddDistrict)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address_AddFull)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address_PostCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CollectDateTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequireDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReadyDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentMethod.PaymentMethodName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CollectionMethod.CollectionMethodName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status.StatusName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryStartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address_AddCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address_AddDistrict)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address_AddFull)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address_PostCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CollectDateTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrderId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrderId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrderId }) |
+            @Ajax.ActionLink("顯示詳細", "OrderDetail", new {orderId = item.OrderId}, new AjaxOptions()
+            {
+                UpdateTargetId = "orderDetail",
+                HttpMethod = "Get",
+                InsertionMode = InsertionMode.Replace
+            })
+        </td>
+    </tr>
+}
+
+</table>
+    <div id="orderDetail">
+
+    </div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

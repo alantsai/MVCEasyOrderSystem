@@ -165,8 +165,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BrowseByMealController.cs" />
     <Compile Include="Controllers\BrowseBySupplierController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderDetailController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -200,14 +202,24 @@
     <Compile Include="Migrations\201211111158222_Order_TPH2.Designer.cs">
       <DependentUpon>201211111158222_Order_TPH2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211131132545_Order2.cs" />
+    <Compile Include="Migrations\201211131132545_Order2.Designer.cs">
+      <DependentUpon>201211131132545_Order2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201211131150511_collectedDateTime.cs" />
+    <Compile Include="Migrations\201211131150511_collectedDateTime.Designer.cs">
+      <DependentUpon>201211131150511_collectedDateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201211131437187_changeUserIdType.cs" />
+    <Compile Include="Migrations\201211131437187_changeUserIdType.Designer.cs">
+      <DependentUpon>201211131437187_changeUserIdType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CollectionMethod.cs" />
-    <Compile Include="Models\CollectionOrder.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\DeliveryOrder.cs" />
     <Compile Include="Models\Meal.cs" />
     <Compile Include="Models\EOSystemContex.cs" />
     <Compile Include="Models\Order.cs" />
@@ -219,6 +231,8 @@
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CreateOrderViewModel.cs" />
+    <Compile Include="ViewModels\ForgetPasswordViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -357,6 +371,21 @@
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Customer\Delete.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Address.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Order\Create.cshtml" />
+    <Content Include="Views\Order\Edit.cshtml" />
+    <Content Include="Views\Order\Delete.cshtml" />
+    <Content Include="Views\Order\ProcedToCheckout.cshtml" />
+    <Content Include="Views\Shared\_ShoppingCart.cshtml" />
+    <Content Include="Views\OrderDetail\Index.cshtml" />
+    <Content Include="Views\OrderDetail\Details.cshtml" />
+    <Content Include="Views\OrderDetail\Create.cshtml" />
+    <Content Include="Views\OrderDetail\Edit.cshtml" />
+    <Content Include="Views\OrderDetail\Delete.cshtml" />
+    <Content Include="Views\Order\OrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201211072154395_Initial.resx">
@@ -380,6 +409,15 @@
     <EmbeddedResource Include="Migrations\201211111158222_Order_TPH2.resx">
       <DependentUpon>201211111158222_Order_TPH2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211131132545_Order2.resx">
+      <DependentUpon>201211131132545_Order2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211131150511_collectedDateTime.resx">
+      <DependentUpon>201211131150511_collectedDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211131437187_changeUserIdType.resx">
+      <DependentUpon>201211131437187_changeUserIdType.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -401,7 +439,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>1373</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1199/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

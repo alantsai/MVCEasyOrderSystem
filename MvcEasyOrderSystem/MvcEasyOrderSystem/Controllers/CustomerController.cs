@@ -48,7 +48,6 @@ namespace MvcEasyOrderSystem.Controllers
         [HttpPost]
         public ActionResult Create(Customer customer)
         {
-            customer.UserId = 2;
             
             if (ModelState.IsValid)
             {

@@ -11,6 +11,7 @@ using MvcEasyOrderSystem.BussinessLogic;
 
 namespace MvcEasyOrderSystem.Controllers
 {
+
     public class ShoppingCartController : Controller
     {
         private IGenericRepository<ShoppingCart> shoppingCartRepo;
@@ -26,6 +27,7 @@ namespace MvcEasyOrderSystem.Controllers
         {
         }
 
+
         public ActionResult AddToCart(int mealId)
         {
             shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
@@ -39,6 +41,7 @@ namespace MvcEasyOrderSystem.Controllers
         //
         // GET: /ShoppingCart/
 
+
         public ActionResult Index()
         {
             shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
@@ -48,7 +51,7 @@ namespace MvcEasyOrderSystem.Controllers
             viewModel.CartItems = shoppingCartLogic.GetShoppingCartItems().ToList();
                viewModel.TotalPrice = shoppingCartLogic.GetShoppingCartTotalPrice(viewModel.CartItems);
             
-
+            //TODO: bug on when shopping cart is empty
             return View(viewModel);
         }
 
@@ -64,6 +67,15 @@ namespace MvcEasyOrderSystem.Controllers
                 return HttpNotFound();
             }
             return View(shoppingcart);
+        }
+
+        public ActionResult EmptyShoppingCart(string userId)
+        {
+            //TODO: Make it ajax. All shopping cart can be wrap up into a partial view
+            shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
+
+            shoppingCartLogic.EmptyCart();
+            return RedirectToAction("Index");
         }
 
         ////
@@ -120,7 +132,7 @@ namespace MvcEasyOrderSystem.Controllers
 
         ////
         //// GET: /ShoppingCart/Delete/5
-
+       
         public ActionResult Delete(int shoppingCartId = 0)
         {
             shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);

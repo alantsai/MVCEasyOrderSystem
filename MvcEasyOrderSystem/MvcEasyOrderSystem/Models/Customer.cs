@@ -12,7 +12,7 @@ namespace MvcEasyOrderSystem.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [DisplayName("名")]
         [Required(ErrorMessage = "{0} 欄位是必填的")]

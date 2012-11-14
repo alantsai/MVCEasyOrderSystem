@@ -1,0 +1,151 @@
+﻿@model MvcEasyOrderSystem.Models.Order
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Order</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Customer.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Customer.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OrderDateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrderDateTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RequireDateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RequireDateTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ReadyDateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ReadyDateTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TotalPrice)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalPrice)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Comment)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Comment)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CancelDateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CancelDateTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Reason)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Reason)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsCanceled)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsCanceled)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PaymentMethod.PaymentMethodName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PaymentMethod.PaymentMethodName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CollectionMethod.CollectionMethodName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CollectionMethod.CollectionMethodName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Status.StatusName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Status.StatusName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeliveryStartTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeliveryStartTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeliveryEndTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeliveryEndTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Address_AddCity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address_AddCity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Address_AddDistrict)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address_AddDistrict)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Address_AddFull)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address_AddFull)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Address_PostCode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address_PostCode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CollectDateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CollectDateTime)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

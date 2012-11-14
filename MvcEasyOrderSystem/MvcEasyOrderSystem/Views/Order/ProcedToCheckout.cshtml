@@ -1,0 +1,140 @@
+﻿@model MvcEasyOrderSystem.ViewModels.CreateOrderViewModel
+
+@{
+    ViewBag.Title = "ProcedToCheckout";
+}
+
+<h2>ProcedToCheckout</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>CreateOrderViewModel</legend>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RequireDateTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RequireDateTime)
+            @Html.ValidationMessageFor(model => model.RequireDateTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Comment)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Comment)
+            @Html.ValidationMessageFor(model => model.Comment)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PaymentMethodId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(Model.PaymentMethods, "PaymentMethodId", "PaymentMethodName"))
+            @Html.ValidationMessageFor(model => model.PaymentMethodId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CollectionMethodId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.CollectionMethodId, new SelectList(Model.CollectionMethods, "CollectionMethodId", "CollectionMethodName"))
+            @Html.ValidationMessageFor(model => model.CollectionMethodId)
+        </div>
+
+        <div id="deliveryOrder">
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.IsUserRegAddress)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.IsUserRegAddress)
+                @Html.ValidationMessageFor(model => model.IsUserRegAddress)
+            </div>
+            <div id="address">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.AddCity)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.AddCity)
+                @Html.ValidationMessageFor(model => model.AddCity)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.AddDistrict)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.AddDistrict)
+                @Html.ValidationMessageFor(model => model.AddDistrict)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.AddFull)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.AddFull)
+                @Html.ValidationMessageFor(model => model.AddFull)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PostCode)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PostCode)
+                @Html.ValidationMessageFor(model => model.PostCode)
+            </div>
+                </div>
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('#CollectionMethodId').change(function () {
+                var value = $('#CollectionMethodId :selected').text();
+
+                if (value == "送") {
+                    $('#deliveryOrder').show();
+                }
+                else {
+                    $('#deliveryOrder').hide();
+                }
+            });
+
+            $(':checkbox').change(function () {
+                if ($(this).attr('checked')) {
+                    $('#address').slideUp();
+                }
+                else {
+                    $('#address').slideDown();
+                }
+            });
+
+            $('#AddFull').focus(function (e) {
+                var addCity = $('#AddCity').val();
+                var addDistrict = $('#AddDistrict').val();
+                $(this).val(addCity + addDistrict);
+
+            });
+        });
+    </script>
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

@@ -30,10 +30,10 @@ namespace MvcEasyOrderSystem.Models
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<Order>()
-                .Map<DeliveryOrder>(s => s.Requires("DiscriminatorCollectionId").HasValue(1))
-                .Map<CollectionOrder>(s => s.Requires("DiscriminatorCollectionId").HasValue(2))
-                .ToTable("Order");
+            //modelBuilder.Entity<Order>()
+            //    .Map<DeliveryOrder>(s => s.Requires("DiscriminatorCollectionId").HasValue(1))
+            //    .Map<CollectionOrder>(s => s.Requires("DiscriminatorCollectionId").HasValue(2))
+            //    .ToTable("Order");
 
         }
 
