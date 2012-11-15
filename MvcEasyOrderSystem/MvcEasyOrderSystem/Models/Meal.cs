@@ -9,13 +9,17 @@ namespace MvcEasyOrderSystem.Models
 {
     public class Meal
     {
+        public Meal()
+        {
+            Price = 0;
+        }
 
         public int MealId { get; set; }
 
         [DisplayName("餐名")]
         public string MealName { get; set; }
 
-        [DisplayName("價錢")]
+        [DisplayName("價錢(元)")]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 

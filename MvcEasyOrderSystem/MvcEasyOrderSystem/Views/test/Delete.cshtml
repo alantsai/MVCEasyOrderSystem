@@ -1,0 +1,53 @@
+﻿@model MvcEasyOrderSystem.Models.Meal
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Meal</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MealName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MealName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Price)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Price)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Category.CategoryName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Category.CategoryName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Supplier.CompanyName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Supplier.CompanyName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Image)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Image)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

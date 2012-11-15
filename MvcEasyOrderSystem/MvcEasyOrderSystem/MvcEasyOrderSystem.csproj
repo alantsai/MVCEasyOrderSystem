@@ -170,6 +170,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Controllers\testController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -231,6 +232,7 @@
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CreateMealViewModel.cs" />
     <Compile Include="ViewModels\CreateOrderViewModel.cs" />
     <Compile Include="ViewModels\ForgetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Group.cs" />
@@ -242,7 +244,9 @@
       <DependentUpon>EasyOrderSystem.mdf</DependentUpon>
     </Content>
     <Content Include="Content\img\1.jpg" />
+    <Content Include="Content\img\7f81d9af-0af0-456b-89be-d5e329b6e6af.jpg" />
     <Content Include="Content\img\ajax-loader.gif" />
+    <Content Include="Content\img\Penguins.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -392,6 +396,12 @@
     </Content>
     <Content Include="Views\BrowseByMeal\_GroupOfMeal.cshtml" />
     <Content Include="Views\BrowseByMeal\_CategoryWithCountMenu.cshtml" />
+    <Content Include="Views\test\Index.cshtml" />
+    <Content Include="Views\test\Details.cshtml" />
+    <Content Include="Views\test\Create.cshtml" />
+    <Content Include="Views\test\Edit.cshtml" />
+    <Content Include="Views\test\Delete.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201211072154395_Initial.resx">
