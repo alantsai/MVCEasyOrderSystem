@@ -1,39 +1,66 @@
-﻿@model IEnumerable<MvcEasyOrderSystem.Models.Meal>
+﻿@model IEnumerable<System.Linq.IGrouping<string, MvcEasyOrderSystem.Models.Meal>>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@section menu{
 
-
-@foreach (var item in Model)
-{
-    <article class="meal">
-
-        <div class="meal-picture">
-            @Html.DisplayFor(modelItem => item.Image, new { alt = item.MealName + "圖片" });
-        </div>
-        <div class="meal-detail">
-            <section class="meal-info">
-                <h2>@Html.DisplayFor(modelItem => item.MealName)</h2>
-                <text>類別:</text>
-                @Html.ActionLink(item.Category.CategoryName, "ShowByCategory", new { categoryId = item.CategoryId })
-            </section>
-            <section class="meal-restruantInfo">
-                <text>餐館:</text>
-                @Html.ActionLink(item.Supplier.CompanyName, "ShowBySupplier", "BrowseBySupplier", new { supplierId = item.SupplierId }, null)
-            </section>
-            <div>
-                <tex>價格:</tex>@Html.DisplayFor(modelItem => item.Price)
-            </div>
-
-            <div>
-                @Html.ActionLink("購買", "AddToCart", "ShoppingCart", new { mealId = item.MealId }, null)
-            </div>
-        </div>
-    </article>
+    @Html.Action("CategoryWithCountMenu");
     
+    }
+
+@section content{
+    <h2>@ViewBag.Header</h2>
+
+    <div>
+        @using (Ajax.BeginForm("SearchByMealName", new AjaxOptions
+            {
+                UpdateTargetId = "content",
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                LoadingElementId = "loading"
+            }))
+        {
+            <input type="text" name="q" data-autocomplete="@Url.Action("AutoComplete")" />
+            <input type="submit" value="搜索" />
+        }
+    </div>
+
+    <div>
+        @Html.ActionLink("顯示全部菜單", "Index")
+
+    </div>
+
+    <div id="loading">
+        <img src="@Url.Content("~/Content/Img/ajax-loader.gif")" alt="載入中..." />
+    </div>
+
+    @{
+        //TODO: checkout the ajax function
+    }
+    <div id="content" class="category">
+        @{
+            Html.RenderPartial("_GroupOfMeal", Model);
+        }
+    </div>
+
+}
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            $(':input[data-autocomplete]').each(function () {
+                $(this).autocomplete({ source: $(this).attr('data-autocomplete') });
+            });
+
+        });
+
+
+    </script>
 }
 
 

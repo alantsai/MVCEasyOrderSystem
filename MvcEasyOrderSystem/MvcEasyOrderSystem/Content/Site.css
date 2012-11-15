@@ -768,15 +768,33 @@ tr.pager td {
 margin:0;
 }
 
-.meal .meal-detail{
+/*.meal .meal-detail{
     padding-left:130px;
     
 }
 
 .meal .meal-info {
-    /*padding-left:160px;*/
-}
+    padding-left:160px;
+}*/
 
     .meal .meal-picture {
         float:left;
     }
+
+.menu {
+    width:15%;
+}
+
+.content {
+    width:80%;
+    margin-left: 20%;
+}
+
+.categoryName {
+    text-align:center;
+    margin:10px;
+}
+
+#loading {
+    display:none;
+}

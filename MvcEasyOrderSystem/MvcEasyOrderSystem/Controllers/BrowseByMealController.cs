@@ -7,6 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using MvcEasyOrderSystem.Models;
 using MvcEasyOrderSystem.Models.Repositry;
+using MvcEasyOrderSystem.ViewModels;
+using System.Threading;
+
 
 namespace MvcEasyOrderSystem.Controllers
 {
@@ -33,6 +36,28 @@ namespace MvcEasyOrderSystem.Controllers
         {
         }
 
+        [ChildActionOnly]
+        public PartialViewResult CategoryWithCountMenu()
+        {
+            var query = categoryRepo.GetWithFilterAndOrder();
+
+            var group = from m in query
+                        group m by m.CategoryName into g
+                        orderby g.Single().CategoryId ascending
+                        select new Group<string, int> { Key = g.Key, Id= g.Single().CategoryId, Value = g.Sum(item => item.Meal.Count()) };
+
+            return PartialView("_CategoryWithCountMenu", group.ToList());
+        }
+
+        
+        public ActionResult AutoComplete(string term)
+        {
+            var mealName = mealRepo.GetWithFilterAndOrder(x=>x.MealName.Contains(term))
+                .Take(10).Select(x=> new {label = x.MealName});
+
+            return Json(mealName, JsonRequestBehavior.AllowGet);
+        }
+
         //
         // GET: /BrowseByMeal/
 
@@ -40,7 +65,13 @@ namespace MvcEasyOrderSystem.Controllers
         {
             //var meal = db.Meal.Include(m => m.Category).Include(m => m.Supplier);
             var meal = mealRepo.GetWithFilterAndOrder(includeProperties: "Category, Supplier");
-            return View(meal.ToList());
+
+            IEnumerable<System.Linq.IGrouping<string, Meal>> group = from m in meal
+                        group m by m.Category.CategoryName;
+
+            ViewBag.Header = "所有菜單";
+                        
+            return View(group);
         }
 
         //
@@ -61,7 +92,31 @@ namespace MvcEasyOrderSystem.Controllers
         {
             var mealList = mealRepo.GetWithFilterAndOrder(meal => meal.CategoryId == categoryId,
                 null, string.Empty);
-            return View(mealList);
+
+            IEnumerable<System.Linq.IGrouping<string, Meal>> group = from m in mealList
+                                                                     group m by m.Category.CategoryName;
+            ViewBag.Header = group.FirstOrDefault().Key;
+
+            return View("Index", group);
+        }
+
+        
+        public PartialViewResult SearchByMealName(string q)
+        {
+            //TODO: Must be deleted when in actual use
+            Thread.Sleep(2000);
+
+            var meal = mealRepo.GetWithFilterAndOrder(x => x.MealName.Contains(q), includeProperties: "Category");
+            var group = from m in meal
+                        group m by m.Category.CategoryName;
+
+            return PartialView("_GroupOfMeal", group);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            mealRepo.Dispose();
+            base.Dispose(disposing);
         }
 
         ////
@@ -149,10 +204,5 @@ namespace MvcEasyOrderSystem.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        protected override void Dispose(bool disposing)
-        {
-            mealRepo.Dispose();
-            base.Dispose(disposing);
-        }
     }
 }

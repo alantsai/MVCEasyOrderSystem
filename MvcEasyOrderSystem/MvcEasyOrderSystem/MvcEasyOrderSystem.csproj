@@ -233,6 +233,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CreateOrderViewModel.cs" />
     <Compile Include="ViewModels\ForgetPasswordViewModel.cs" />
+    <Compile Include="ViewModels\Group.cs" />
     <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +242,7 @@
       <DependentUpon>EasyOrderSystem.mdf</DependentUpon>
     </Content>
     <Content Include="Content\img\1.jpg" />
+    <Content Include="Content\img\ajax-loader.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -352,12 +354,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\BrowseByMeal\Index.cshtml" />
-    <Content Include="Views\BrowseByMeal\Details.cshtml" />
     <Content Include="Views\BrowseBySupplier\Index.cshtml" />
     <Content Include="Views\BrowseBySupplier\Details.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Address.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ImageUrl.cshtml" />
-    <Content Include="Views\BrowseByMeal\ShowByCategory.cshtml" />
     <Content Include="Views\BrowseBySupplier\ShowBySupplier.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Currency.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
@@ -386,6 +386,12 @@
     <Content Include="Views\OrderDetail\Edit.cshtml" />
     <Content Include="Views\OrderDetail\Delete.cshtml" />
     <Content Include="Views\Order\OrderDetail.cshtml" />
+    <Content Include="Views\BrowseByMeal\_EachMeal.cshtml" />
+    <Content Include="Views\Account\ShowUserInfo.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\BrowseByMeal\_GroupOfMeal.cshtml" />
+    <Content Include="Views\BrowseByMeal\_CategoryWithCountMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201211072154395_Initial.resx">
