@@ -1,0 +1,37 @@
+﻿@model MvcEasyOrderSystem.Models.Order
+
+<tr>
+
+    <td>
+        @Html.DisplayFor(model => model.OrderDateTime)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.RequireDateTime)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.ReadyDateTime)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.TotalPrice)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.Status.StatusName)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.Address_AddFull)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.CollectDateTime)
+    </td>
+    <td>
+@*        @Html.ActionLink("Edit", "Edit", new { id = Model.OrderId }) |
+            @Html.ActionLink("Details", "Details", new { id = Model.OrderId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.OrderId }) |*@
+            @Ajax.ActionLink("顯示詳細", "OrderDetail", new { orderId = Model.OrderId }, new AjaxOptions()
+            {
+                UpdateTargetId = "orderDetail",
+                HttpMethod = "Get",
+                InsertionMode = InsertionMode.Replace
+            })
+    </td>
+</tr>

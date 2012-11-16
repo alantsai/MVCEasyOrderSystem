@@ -83,5 +83,20 @@
 }
 
 @section Scripts {
+@*    <script>
+        $(function () {
+           
+
+            $('#Customer_Address_AddFull').focus(function (e) {
+                var addCity = $('#Customer_Address_AddCity').val();
+                var addDistrict = $('#Customer_Address_AddDistrict').val();
+                $(this).val(addCity + addDistrict);
+
+            });
+        });
+    </script>*@
+
+
     @Scripts.Render("~/bundles/jqueryval")
 }
+

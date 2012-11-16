@@ -1,0 +1,61 @@
+﻿@model MvcEasyOrderSystem.ViewModels.CreateMealViewModel
+
+@{
+    ViewBag.Title = "修改";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Edit", "StoreManagement", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Meal</legend>
+
+        @Html.HiddenFor(model => model.MealId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MealName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MealName)
+            @Html.ValidationMessageFor(model => model.MealName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Price)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Price)
+            @Html.ValidationMessageFor(model => model.Price)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categories, "CategoryId", "CategoryName"))
+            @Html.ValidationMessageFor(model => model.Categories)
+        </div>
+        <p>
+                        如果不修改圖片，請勿選擇檔案。
+        </p>
+            <input type="file" name="file" /> 
+        <p>
+             @Html.DisplayFor(modelItem => modelItem.Image)
+        </p>
+        <p>
+            <input type="submit" value="修改" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("回去菜單清單", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

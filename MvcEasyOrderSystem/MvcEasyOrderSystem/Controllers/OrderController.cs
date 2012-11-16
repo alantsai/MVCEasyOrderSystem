@@ -13,7 +13,7 @@ using MvcEasyOrderSystem.BussinessLogic;
 
 namespace MvcEasyOrderSystem.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="User")]
     public class OrderController : Controller
     {
         private IGenericRepository<Order> orderRepo;
@@ -144,7 +144,7 @@ namespace MvcEasyOrderSystem.Controllers
             return viewModel;
         }
 
-        public ActionResult OrderDetail(int orderId)
+        public PartialViewResult OrderDetail(int orderId)
         {
             var order = orderRepo.GetWithFilterAndOrder(x => x.OrderId == orderId,
                 includeProperties: "OrderDetial");
@@ -161,8 +161,63 @@ namespace MvcEasyOrderSystem.Controllers
         {
             var order = orderRepo.GetWithFilterAndOrder((x => x.UserId == User.Identity.Name),
                 includeProperties: "CollectionMethod, Customer, PaymentMethod, Status");
-            //var order = db.Order.Include(o => o.CollectionMethod).Include(o => o.Customer).Include(o => o.PaymentMethod).Include(o => o.Status);
+            ViewBag.Header = "所有訂單";
+
             return View(order.ToList());
+        }
+
+        public ActionResult ShowByCollectionMethod(int id = 0)
+        {
+            var order = orderRepo.GetWithFilterAndOrder((x => x.UserId == User.Identity.Name
+                && x.CollectionMethodId == id), includeProperties: "CollectionMethod");
+
+            if (order.Count() != 0)
+            {
+
+                ViewBag.Header =string.Format("收貨方式({0})清單",order.FirstOrDefault().CollectionMethod.CollectionMethodName);
+            }
+
+            return View("Index", order);
+        }
+
+        public ActionResult ShowByStatus(int id = 0)
+        {
+            var order = orderRepo.GetWithFilterAndOrder((x => x.UserId == User.Identity.Name
+                && x.StatusId == id), includeProperties: "Status");
+
+            if (order.Count() != 0)
+            {
+
+                ViewBag.Header = string.Format("訂單狀況({0})清單", order.FirstOrDefault().Status.StatusName);
+            }
+
+            return View("Index", order);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult CollectionMethodOrderMenu()
+        {
+            var query = orderRepo.GetWithFilterAndOrder();
+
+            var group = from m in query
+                        group m by m.CollectionMethod.CollectionMethodName into g
+                        
+                        select new Group<string, int> { Key = g.Key, Id = g.FirstOrDefault().CollectionMethodId, Value = g.Count()};
+
+            ViewData["Controller"] = "ShowByCollectionMethod";
+            return PartialView("_ShowMenu", group.ToList());
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult StatusOrderMenu()
+        {
+            var query = orderRepo.GetWithFilterAndOrder();
+
+            var group = from m in query
+                        group m by m.Status.StatusName into g
+                        select new Group<string, int> { Key = g.Key, Id = g.FirstOrDefault().StatusId, Value = g.Count() };
+            ViewData["Controller"] = "ShowByStatus";
+            return PartialView("_ShowMenu", group.ToList());
         }
 
         //

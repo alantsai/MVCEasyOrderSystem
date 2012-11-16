@@ -163,14 +163,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BussinessLogic\ShoppingCartLogic.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BrowseByMealController.cs" />
     <Compile Include="Controllers\BrowseBySupplierController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
-    <Compile Include="Controllers\testController.cs" />
+    <Compile Include="Controllers\StoreManagementController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -245,6 +244,7 @@
     </Content>
     <Content Include="Content\img\1.jpg" />
     <Content Include="Content\img\7f81d9af-0af0-456b-89be-d5e329b6e6af.jpg" />
+    <Content Include="Content\img\842e00fd-60e7-4f1d-852c-4ae1dc4b37ca.jpg" />
     <Content Include="Content\img\ajax-loader.gif" />
     <Content Include="Content\img\Penguins.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -304,6 +304,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\EOS.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -350,14 +351,11 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\BrowseByMeal\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\BrowseBySupplier\Index.cshtml" />
     <Content Include="Views\BrowseBySupplier\Details.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Address.cshtml" />
@@ -365,9 +363,6 @@
     <Content Include="Views\BrowseBySupplier\ShowBySupplier.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Currency.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
-    <Content Include="Views\ShoppingCart\Details.cshtml" />
-    <Content Include="Views\ShoppingCart\Create.cshtml" />
-    <Content Include="Views\ShoppingCart\Edit.cshtml" />
     <Content Include="Views\ShoppingCart\Delete.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
@@ -376,7 +371,6 @@
     <Content Include="Views\Customer\Delete.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Address.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />
@@ -390,18 +384,23 @@
     <Content Include="Views\OrderDetail\Edit.cshtml" />
     <Content Include="Views\OrderDetail\Delete.cshtml" />
     <Content Include="Views\Order\OrderDetail.cshtml" />
-    <Content Include="Views\BrowseByMeal\_EachMeal.cshtml" />
+    <Content Include="Views\Home\_EachMeal.cshtml" />
     <Content Include="Views\Account\ShowUserInfo.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\BrowseByMeal\_GroupOfMeal.cshtml" />
-    <Content Include="Views\BrowseByMeal\_CategoryWithCountMenu.cshtml" />
-    <Content Include="Views\test\Index.cshtml" />
-    <Content Include="Views\test\Details.cshtml" />
-    <Content Include="Views\test\Create.cshtml" />
-    <Content Include="Views\test\Edit.cshtml" />
-    <Content Include="Views\test\Delete.cshtml" />
+    <Content Include="Views\Home\_GroupOfMeal.cshtml" />
+    <Content Include="Views\Home\_CategoryWithCountMenu.cshtml" />
+    <Content Include="Views\StoreManagement\Details.cshtml" />
+    <Content Include="Views\StoreManagement\Edit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\StoreManagement\Create.cshtml" />
+    <Content Include="Views\StoreManagement\Index.cshtml" />
+    <Content Include="Views\Account\ResetInfo.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\ShoppingCart\_ShoppingCartCount.cshtml" />
+    <Content Include="Views\Order\_EachOrder.cshtml" />
+    <Content Include="Views\Order\_ShowMenu.cshtml" />
+    <Content Include="Views\Shared\_UserMenuList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201211072154395_Initial.resx">

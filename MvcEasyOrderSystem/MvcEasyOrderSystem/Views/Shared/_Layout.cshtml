@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - 我的 ASP.NET MVC 應用程式</title>
+    <title>@ViewBag.Title - EOS:最簡單訂單系統</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
@@ -22,9 +22,14 @@
                 </section>
                 <nav>
                     <ul id="menu">
-                        <li>@Html.ActionLink("首頁", "Index", "Home")</li>
+                        <li>@Html.ActionLink("瀏覽菜單", "Index", "Home")</li>
                         <li>@Html.ActionLink("關於", "About", "Home")</li>
-                        <li>@Html.ActionLink("連絡", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("連絡", "Contact", "Home")</li>  
+                        <li>@{ Html.RenderAction("ShoppingCartCount", "ShoppingCart"); }</li>
+                        @if (User.IsInRole("User"))
+                        {
+                            Html.Partial("_UserMenuList");
+                        }
                     </ul>
                 </nav>
             </div>
@@ -45,12 +50,13 @@
     <footer>
         <div class="content-wrapper">
             <div class="float-left">
-                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET MVC 應用程式</p>
+                <p>&copy; @DateTime.Now.Year - EOS:最簡單訂單系統</p>
             </div>
         </div>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/EOS.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -37,12 +37,18 @@ namespace MvcEasyOrderSystem.Controllers
 
         public void SentEmail(string desAddress, string title, string body)
         {
-            var client = new SmtpClient("smtp.gmail.com", 587)
+            string smtpServer = ConfigurationManager.AppSettings["SmtpServer"].ToString();
+            int smtpPort = int.Parse(ConfigurationManager.AppSettings["SmtpPort"].ToString());
+
+            string email = ConfigurationManager.AppSettings["SystemEmail"].ToString();
+            string password = ConfigurationManager.AppSettings["EmailPassword"].ToString();
+
+            var client = new SmtpClient(smtpServer, smtpPort)
               {
-                Credentials = new NetworkCredential("easyordersystem@gmail.com", "1qaz@WSX#EDC"),
+                Credentials = new NetworkCredential(email, password),
                 EnableSsl = true
               };
-            client.Send("easyordersystem@gmail.com", desAddress,title, body);
+            client.Send(email, desAddress,title, body);
         }
 
         public void MigrateShoppingCart(string userId)
@@ -71,13 +77,14 @@ namespace MvcEasyOrderSystem.Controllers
                 var customer = customerRepo.GetSingleEntity(x => x.UserId == userId);
                 if (customer != null)
                 {
-                    string title = "密碼回復";
-                    string body = "請使用以下字串來重設密碼:\n" +
-                        Server.MapPath("~/Account/ResetPassword") + "?resetToken=" + WebSecurity.GeneratePasswordResetToken(viewModel.UserName);
+                    string url = "http://" + Request.Url.Host + "/Account/ResetPassword";
+                    string title = "密碼重設";
+                    string body = "請使用以下Token來重設密碼:\n" +
+                        WebSecurity.GeneratePasswordResetToken(viewModel.UserName);
 
                     SentEmail(customer.Email, title, body);
 
-                    return RedirectToAction("ResetPassword", new { userName = viewModel.UserName });
+                    return RedirectToAction("ResetPassword");
                 }
 
             }
@@ -88,12 +95,28 @@ namespace MvcEasyOrderSystem.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult ResetPassword(string resetToken)
+        public ActionResult ResetPassword(string resetToken = "")
         {
-            string password = "123";
+            return View(resetToken);
+        }
+
+        //TODO: Bug when given wrong token
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string resetToken, string password)
+        {
             bool result = WebSecurity.ResetPassword(resetToken, password);
-            return View(password);
-        } 
+
+            if (result == true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ModelState.AddModelError("", "查無此Token或已經過期");
+
+            return View(resetToken);
+        }
+
         #endregion
 
         

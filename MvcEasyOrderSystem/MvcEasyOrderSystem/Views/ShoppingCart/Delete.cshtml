@@ -1,12 +1,12 @@
 ﻿@model MvcEasyOrderSystem.Models.ShoppingCart
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "刪除";
 }
 
-<h2>Delete</h2>
+<h2>刪除</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>確定要從購物車裏面刪除這到菜?</h3>
 <fieldset>
     <legend>ShoppingCart</legend>
 
@@ -47,7 +47,7 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="刪除" /> |
+        @Html.ActionLink("回到清單", "Index")
     </p>
 }

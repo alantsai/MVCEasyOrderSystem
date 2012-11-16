@@ -22,12 +22,15 @@ namespace MvcEasyOrderSystem.Models
         public string UserId { get; set; }
 
         [DisplayName("訂單時間")]
+        [DataType( System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public System.DateTime OrderDateTime { get; set; }
 
         [DisplayName("預定時間")]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public Nullable<System.DateTime> RequireDateTime { get; set; }
 
         [DisplayName("完成時間")]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public Nullable<System.DateTime> ReadyDateTime { get; set; }
 
         

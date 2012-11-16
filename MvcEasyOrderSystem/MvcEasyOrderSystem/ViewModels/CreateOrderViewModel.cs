@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using MvcEasyOrderSystem.Models;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MvcEasyOrderSystem.ViewModels
 {
@@ -11,6 +12,7 @@ namespace MvcEasyOrderSystem.ViewModels
     {
 
         [DisplayName("預定時間")]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public System.DateTime RequireDateTime { get; set; }
 
         [DisplayName("備註")]

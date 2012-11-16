@@ -1,22 +1,18 @@
 ﻿@model MvcEasyOrderSystem.ViewModels.ShoppingCartViewModel
 
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 
 @{
     Html.RenderPartial("_ShoppingCart", Model);
 }
 
+<div style="margin-top:20px">
+    @if (@Model.CartItems.Count != 0)
+    {
+        @Html.ActionLink("清空購物車", "EmptyShoppingCart", new { userId = @Model.CartItems[0].UserId })
+        @Html.ActionLink("買單", "ProcedToCheckout", "Order", null, null)
+    }
 
-@if (@Model.CartItems.Count != 0)
-{
-    @Html.ActionLink("清空購物車", "EmptyShoppingCart", new {userId = @Model.CartItems[0].UserId })
-    @Html.ActionLink("買單", "ProcedToCheckout","Order", null, null)
-}
+</div>

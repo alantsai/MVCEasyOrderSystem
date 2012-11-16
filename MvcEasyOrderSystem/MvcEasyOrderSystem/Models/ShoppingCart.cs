@@ -21,7 +21,7 @@ namespace MvcEasyOrderSystem.Models
         [DisplayName("餐名")]
         public string MealName { get; set; }
 
-        [DisplayName("總額")]
+        [DisplayName("金額")]
         public decimal FullPrice
         {
             get

@@ -177,6 +177,10 @@ namespace MvcEasyOrderSystem.BussinessLogic
             shoppingCartRepo.SaveChanges();
         }
 
+        public int GetShoppingCartCount()
+        {
+            return shoppingCartRepo.GetWithFilterAndOrder(x => x.UserId == UserId).Count();
+        }
 
     }
 }

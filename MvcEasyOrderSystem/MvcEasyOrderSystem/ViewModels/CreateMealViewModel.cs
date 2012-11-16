@@ -14,6 +14,8 @@ namespace MvcEasyOrderSystem.ViewModels
         [Required(ErrorMessage = "{0}是必須要填寫的")]
         public string MealName { get; set; }
 
+        public int MealId { get; set; }
+
         [DisplayName("價錢(元)")]
         [DataType(DataType.Currency)]
         [Range(1, 2000,ErrorMessage = "{0}最低為{1},最高為{2}")]

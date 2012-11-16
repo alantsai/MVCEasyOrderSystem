@@ -50,8 +50,10 @@ namespace MvcEasyOrderSystem.Controllers
 
             viewModel.CartItems = shoppingCartLogic.GetShoppingCartItems().ToList();
                viewModel.TotalPrice = shoppingCartLogic.GetShoppingCartTotalPrice(viewModel.CartItems);
-            
-            //TODO: bug on when shopping cart is empty
+
+               ViewBag.ShowEdit = true;
+               ViewBag.Title = "購物車內容";
+
             return View(viewModel);
         }
 
@@ -78,60 +80,13 @@ namespace MvcEasyOrderSystem.Controllers
             return RedirectToAction("Index");
         }
 
-        ////
-        //// GET: /ShoppingCart/Create
+        public PartialViewResult ShoppingCartCount()
+        {
+            shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
 
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+            return PartialView("_ShoppingCartCount", shoppingCartLogic.GetShoppingCartCount());
+        }
 
-        ////
-        //// POST: /ShoppingCart/Create
-
-        //[HttpPost]
-        //public ActionResult Create(ShoppingCart shoppingcart)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        shoppingCartRepo.ShoppingCarts.Add(shoppingcart);
-        //        shoppingCartRepo.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(shoppingcart);
-        //}
-
-        ////
-        //// GET: /ShoppingCart/Edit/5
-
-        //public ActionResult Edit(int id = 0)
-        //{
-        //    ShoppingCart shoppingcart = shoppingCartRepo.ShoppingCarts.Find(id);
-        //    if (shoppingcart == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(shoppingcart);
-        //}
-
-        ////
-        //// POST: /ShoppingCart/Edit/5
-
-        //[HttpPost]
-        //public ActionResult Edit(ShoppingCart shoppingcart)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        shoppingCartRepo.Entry(shoppingcart).State = EntityState.Modified;
-        //        shoppingCartRepo.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(shoppingcart);
-        //}
-
-        ////
-        //// GET: /ShoppingCart/Delete/5
        
         public ActionResult Delete(int shoppingCartId = 0)
         {
