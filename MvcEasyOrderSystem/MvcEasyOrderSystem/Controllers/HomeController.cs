@@ -11,22 +11,26 @@ using System.Web.Mvc;
 namespace MvcEasyOrderSystem.Controllers
 {
     public class HomeController : Controller
-    { private IGenericRepository<Meal> mealRepo;
+    {
+        private IGenericRepository<Meal> mealRepo;
         private IGenericRepository<Supplier> supplierRepo;
         private IGenericRepository<Category> categoryRepo;
+        private IGenericRepository<OrderDetial> orderDetailRepo;
 
 
         public HomeController(IGenericRepository<Meal> inMeal,
-            IGenericRepository<Supplier> inSupplier, IGenericRepository<Category> inCat)
+            IGenericRepository<Supplier> inSupplier, IGenericRepository<Category> inCat,
+            IGenericRepository<OrderDetial> inOrder)
         {
             mealRepo = inMeal;
             supplierRepo = inSupplier;
             categoryRepo = inCat;
+            orderDetailRepo = inOrder;
         }
 
         public HomeController()
-            :this(new GenericRepository<Meal>(), new GenericRepository<Supplier>(),
-            new GenericRepository<Category>())
+            : this(new GenericRepository<Meal>(), new GenericRepository<Supplier>(),
+            new GenericRepository<Category>(), new GenericRepository<OrderDetial>())
         {
         }
 
@@ -35,19 +39,36 @@ namespace MvcEasyOrderSystem.Controllers
         {
             var query = categoryRepo.GetWithFilterAndOrder();
 
+
             var group = from m in query
                         group m by m.CategoryName into g
                         orderby g.Single().CategoryId ascending
-                        select new Group<string, int> { Key = g.Key, Id= g.Single().CategoryId, Value = g.Sum(item => item.Meal.Count()) };
+                        select new Group<string, int> { Key = g.Key, Id = g.Single().CategoryId, Value = g.Sum(item => item.Meal.Count()) };
 
             return PartialView("_CategoryWithCountMenu", group.ToList());
         }
 
-        
+        [ChildActionOnly]
+        public PartialViewResult Top10BestSale()
+        {
+
+            var query = orderDetailRepo.GetWithFilterAndOrder();
+
+
+            var group = (from m in query
+                        group m by m.Meal.MealName into g
+                        orderby g.Count() descending
+                        select new Group<string, int> { Key = g.Key , Id = g.First().Meal.MealId })
+                        .Take(10);
+
+            return PartialView("_Top10BestSale", group.ToList());
+        }
+
+
         public ActionResult AutoComplete(string term)
         {
-            var mealName = mealRepo.GetWithFilterAndOrder(x=>x.MealName.Contains(term))
-                .Take(10).Select(x=> new {label = x.MealName});
+            var mealName = mealRepo.GetWithFilterAndOrder(x => x.MealName.Contains(term))
+                .Take(10).Select(x => new { label = x.MealName });
 
             return Json(mealName, JsonRequestBehavior.AllowGet);
         }
@@ -60,10 +81,10 @@ namespace MvcEasyOrderSystem.Controllers
             var meal = mealRepo.GetWithFilterAndOrder(includeProperties: "Category, Supplier");
 
             IEnumerable<System.Linq.IGrouping<string, Meal>> group = from m in meal
-                        group m by m.Category.CategoryName;
+                                                                     group m by m.Category.CategoryName;
 
             ViewBag.Header = "所有菜單";
-                        
+
             return View(group);
         }
 
@@ -84,7 +105,7 @@ namespace MvcEasyOrderSystem.Controllers
             return View("Index", group);
         }
 
-        
+
         public PartialViewResult SearchByMealName(string q)
         {
             //TODO: Must be deleted when in actual use

@@ -40,10 +40,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.ReadyDateTime)
             </th>
-            <th>
+            <th id="tablePrice">
                 @Html.DisplayNameFor(model => model.TotalPrice)
             </th>
-            <th>
+            <th id="tableStatusName">
                 @Html.DisplayNameFor(model => model.Status.StatusName)
             </th>
 
@@ -63,7 +63,12 @@
 
     </tbody>
 </table>
-<div id="orderDetail">
+
+<div id="loading">
+    <img src="@Url.Content("~/Content/Img/ajax-loader.gif")" alt="載入中..." />
+</div>
+
+<div id="ajax-orderDetail">
 </div>
 
 

@@ -1,6 +1,9 @@
 ﻿
     $(function () {
-           
+        $('.global_navi li:last-child').attr("class", "last");
+
+        $('tr:odd').attr('class', 'odd');
+
         //For the address for register
         $('#Customer_Address_AddFull').focus(function (e) {
             var addCity = $('#Customer_Address_AddCity').val();
@@ -40,4 +43,6 @@
             $(this).val(addCity + addDistrict);
 
         });
+
+
     });

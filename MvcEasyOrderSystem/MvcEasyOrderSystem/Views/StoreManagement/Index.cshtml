@@ -4,11 +4,13 @@
     ViewBag.Title = "菜單管理";
 }
 
-<h2>@ViewBag.Title</h2>
+@section menu{
+    <ul>
+        <li class="title">菜單功能</li>
+        @{Html.RenderPartial("_MealFunctionMenu");}
+    </ul>
+}
 
-<p>
-    @Html.ActionLink("增加菜單", "Create")
-</p>
 <table>
     <tr>
         <th>
@@ -40,9 +42,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Image)
         </td>
-        <td>
+        <td style="width:20%;">
             @Html.ActionLink("修改", "Edit", new { id=item.MealId }) |
-            @Html.ActionLink("詳細", "Details", new { id=item.MealId }) |
+            @Html.ActionLink("詳細", "Details", new { id=item.MealId })
         </td>
     </tr>
 }

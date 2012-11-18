@@ -12,6 +12,7 @@ using MvcEasyOrderSystem.Models.Repositry;
 using MvcEasyOrderSystem.BussinessLogic;
 using WebMatrix.WebData;
 using System.Web.Security;
+using System.Threading;
 
 namespace MvcEasyOrderSystem.Controllers
 {
@@ -23,23 +24,34 @@ namespace MvcEasyOrderSystem.Controllers
         private IGenericRepository<ShoppingCart> shoppingCartRepo;
         private ShoppingCartLogic shoppingCartLogic;
         private IGenericRepository<Customer> customerRepo;
+        private IGenericRepository<PaymentMethod> paymentMethodRepo;
+        private IGenericRepository<CollectionMethod> collectionRepo;
+        private IGenericRepository<Status> statusRepo;
 
         public OrderController(IGenericRepository<Order> inOrderRepo,
             IGenericRepository<ShoppingCart> inShoppingCartRepo,
-            IGenericRepository<Customer> inCustomerRepo)
+            IGenericRepository<Customer> inCustomerRepo,
+            IGenericRepository<PaymentMethod> inPayment,
+            IGenericRepository<CollectionMethod> inCollection,
+            IGenericRepository<Status> inStatus
+            )
         {
             orderRepo = inOrderRepo;
             customerRepo = inCustomerRepo;
             shoppingCartRepo = inShoppingCartRepo;
+            paymentMethodRepo = inPayment;
+            collectionRepo = inCollection;
+            statusRepo = inStatus;
         }
 
         public OrderController()
             : this(new GenericRepository<Order>(), new GenericRepository<ShoppingCart>(),
-            new GenericRepository<Customer>())
+            new GenericRepository<Customer>(), new GenericRepository<PaymentMethod>(),
+            new GenericRepository<CollectionMethod>(), new GenericRepository<Status>())
         {
         }
 
-        private EOSystemContex db = new EOSystemContex();
+        //private EOSystemContex db = new EOSystemContex();
 
 
         public ActionResult ProcedToCheckout()
@@ -47,8 +59,8 @@ namespace MvcEasyOrderSystem.Controllers
             var viewModel = new CreateOrderViewModel()
                 {
                     RequireDateTime = DateTime.Now,
-                    PaymentMethods = db.PaymentMethod,
-                    CollectionMethods = db.CollectionMethod
+                    PaymentMethods = paymentMethodRepo.GetWithFilterAndOrder(),
+                    CollectionMethods = collectionRepo.GetWithFilterAndOrder()
                 };
 
             return View(viewModel);
@@ -77,8 +89,8 @@ namespace MvcEasyOrderSystem.Controllers
             }
 
 
-            viewModel.PaymentMethods = db.PaymentMethod;
-            viewModel.CollectionMethods = db.CollectionMethod;
+            viewModel.PaymentMethods = paymentMethodRepo.GetWithFilterAndOrder();
+            viewModel.CollectionMethods = collectionRepo.GetWithFilterAndOrder();
 
             return View(viewModel);
         }
@@ -146,8 +158,12 @@ namespace MvcEasyOrderSystem.Controllers
             return viewModel;
         }
 
+        
         public PartialViewResult OrderDetail(int orderId)
         {
+            //TODO: Delete
+            Thread.Sleep(1000);
+
             var order = orderRepo.GetWithFilterAndOrder(x => x.OrderId == orderId,
                 includeProperties: "OrderDetial");
 
@@ -190,7 +206,6 @@ namespace MvcEasyOrderSystem.Controllers
             {
 
                 ViewBag.Title =string.Format("收貨方式({0})清單",order.FirstOrDefault().CollectionMethod.CollectionMethodName);
-                ViewBag.ShowEdit = true;
             }
 
             return View("Index", order);
@@ -313,7 +328,7 @@ namespace MvcEasyOrderSystem.Controllers
 
             var viewModel = new UpdateOrderViewModel();
 
-            viewModel.Status = db.Status;
+            viewModel.Status = statusRepo.GetWithFilterAndOrder();
             viewModel.Order = order;
             viewModel.StatusId = order.StatusId;
 
@@ -345,40 +360,22 @@ namespace MvcEasyOrderSystem.Controllers
                 return RedirectToAction("Index");
             }
 
-            viewModel.Status = db.Status;
+            viewModel.Status = statusRepo.GetWithFilterAndOrder();
             viewModel.Order = order;
            
             return View(viewModel);
         }
 
-        //
-        // GET: /Checkout/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Order order = db.Order.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            return View(order);
-        }
-
-        //
-        // POST: /Checkout/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Order order = db.Order.Find(id);
-            db.Order.Remove(order);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+       
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            orderRepo.Dispose();
+            customerRepo.Dispose();
+            shoppingCartRepo.Dispose();
+            paymentMethodRepo.Dispose();
+            collectionRepo.Dispose();
+            statusRepo.Dispose();
             base.Dispose(disposing);
         }
     }

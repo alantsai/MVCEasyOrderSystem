@@ -3,13 +3,14 @@
     <text>
     您好，@Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "管理" })!
         
-        @Html.ActionLink("登出", "LogOff", "Account", null, null)
+        @Html.ActionLink("登出", "LogOff", "Account", null, null) |
     </text>
+        @Html.ActionLink("管理個人帳戶", "Manage", "Account", routeValues: null, htmlAttributes: null)
 }
 else
 {
     <div class="login">
         @Html.ActionLink("註冊", "Register", "Account", routeValues: null, htmlAttributes: null) |
-        @Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: null)
+        @Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: null) 
     </div>   
 }

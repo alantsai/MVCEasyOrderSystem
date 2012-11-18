@@ -1,0 +1,10 @@
+﻿@using MvcEasyOrderSystem.ViewModels
+@model List<Group<string, int>>
+
+
+    @foreach (var item in Model)
+    {
+        <li>@Html.ActionLink(string.Format("{0}",@item.Key.ToString()),
+        "AddToCart", "ShoppingCart", new {mealId = item.Id}, null)
+        </li>     
+    }

@@ -20,14 +20,18 @@
 
             <p class="login">
                 @*<img src="@Url.Content("~/Content/img/button_cart.gif")" alt="確認購物車內容" />*@
-                    @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")
             </p>
 
 
             <ul class="global_navi">
                 <li>@Html.ActionLink("瀏覽菜單", "Index", "Home")</li>
-                <li>@{ Html.RenderAction("ShoppingCartCount", "ShoppingCart"); }</li>
 
+                @if ((Request.IsAuthenticated == false)
+                    || (!Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("Admin")))
+                {
+                    <li>@{ Html.RenderAction("ShoppingCartCount", "ShoppingCart"); }</li>
+                }
                 @{ if (Request.IsAuthenticated)
                    {
                        if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("User"))
@@ -47,8 +51,8 @@
 
         <div id="content" class="clearfix">
 
-                            @RenderSection("fullpage", false)
-            
+            @RenderSection("fullpage", false)
+
 
             <div class="leftBox">
                 @RenderSection("menu", false)
@@ -56,9 +60,9 @@
             </div>
 
             <div class="wrap clearfix">
-            <h3>@ViewBag.Title</h3>                
+                <h3>@ViewBag.Title</h3>
 
-             @RenderBody()
+                @RenderBody()
             </div>
 
         </div>

@@ -18,7 +18,7 @@ namespace MvcEasyOrderSystem.Models
     
         public int CollectionMethodId { get; set; }
 
-        [DisplayName("送還是拿")]
+        [DisplayName("取餐方式")]
         public string CollectionMethodName { get; set; }
     
         public virtual ICollection<Order> Order { get; set; }

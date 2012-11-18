@@ -1,10 +1,15 @@
 ﻿@model MvcEasyOrderSystem.Models.Meal
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "詳細";
 }
 
-<h2>Details</h2>
+@section menu{
+    <ul>
+        <li class="title">菜單功能</li>
+        @{Html.RenderPartial("_MealFunctionMenu");}
+    </ul>
+}
 
 <fieldset>
     <legend>Meal</legend>
@@ -44,7 +49,7 @@
         @Html.DisplayFor(model => model.Image)
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.MealId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="bottomLink">
+    @Html.ActionLink("修改", "Edit", new { id=Model.MealId }) |
+    @Html.ActionLink("回到清單", "Index")
+</div>

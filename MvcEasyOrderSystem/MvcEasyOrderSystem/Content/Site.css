@@ -808,3 +808,26 @@ margin:0;
 div.editor-field {
     margin-bottom: 20px;
 }
+
+a {
+    /*border-bottom:1px solid;
+    padding-bottom: 1px;
+    margin-left:2px;*/
+    text-decoration:underline;
+}
+
+tr td:last-child {
+    width: 10%;
+}
+
+th#tableStatusName {
+    width:13%;
+}
+
+th#tablePrice {
+    width:12%;
+}
+
+.bottomLink {
+    margin-top:20px;
+}

@@ -4,7 +4,12 @@
     ViewBag.Title = "新增菜單";
 }
 
-<h2>@ViewBag.Title</h2>
+@section menu{
+    <ul>
+        <li class="title">菜單功能</li>
+        @{Html.RenderPartial("_MealFunctionMenu");}
+    </ul>
+}
 
 @using (Html.BeginForm("Create", "StoreManagement", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -73,8 +78,8 @@
 
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="bottomLink">
+    @Html.ActionLink("回到清單", "Index")
 </div>
 
 @section Scripts {

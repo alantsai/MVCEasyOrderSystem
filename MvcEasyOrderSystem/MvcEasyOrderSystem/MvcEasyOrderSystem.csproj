@@ -416,7 +416,6 @@
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
-    <Content Include="Views\Order\Delete.cshtml" />
     <Content Include="Views\Order\ProcedToCheckout.cshtml" />
     <Content Include="Views\Shared\_ShoppingCart.cshtml" />
     <Content Include="Views\OrderDetail\Index.cshtml" />
@@ -444,6 +443,8 @@
     <Content Include="Views\Shared\_UserMenuList.cshtml" />
     <Content Include="Views\Shared\_AdminMenuList.cshtml" />
     <Content Include="Views\Account\_LoginRelatedMenu.cshtml" />
+    <Content Include="Views\Home\_Top10BestSale.cshtml" />
+    <Content Include="Views\StoreManagement\_MealFunctionMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201211072154395_Initial.resx">

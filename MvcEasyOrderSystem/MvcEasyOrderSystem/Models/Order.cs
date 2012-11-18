@@ -71,11 +71,15 @@ namespace MvcEasyOrderSystem.Models
         [DisplayName("送到時間")]
         public Nullable<System.DateTime> DeliveryEndTime { get; set; }
 
+        [DisplayName("市/縣")]
         public string Address_AddCity { get; set; }
+        [DisplayName("區")]
         public string Address_AddDistrict { get; set; }
 
-        [DisplayName("地址")]
+        [DisplayName("完整地址")]
         public string Address_AddFull { get; set; }
+
+        [DisplayName("郵遞區號")]
         public Nullable<int> Address_PostCode { get; set; }
 
 

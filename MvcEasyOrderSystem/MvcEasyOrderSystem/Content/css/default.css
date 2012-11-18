@@ -597,8 +597,8 @@ ul.itemList {
     ul.itemList li {
         display: inline;
         float: left;
-        margin-right: 15px;
-        width: 150px;
+        margin-right: 1px;
+        width: 175px;
     }
 
     ul.itemList p.itemDetailTxt {
@@ -731,7 +731,7 @@ dl.faq {
 
     dl.faq dd {
         margin: 0 0 20px 30px;
-        padding:;
+
         line-height: 1.6;
     }
 
@@ -849,3 +849,20 @@ dl.privacy {
     a.addToShoppingCart:hover {
         background-color:white;
     }
+
+a {
+       text-decoration:underline;
+}
+
+td {
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+}
+
+tfoot tr {
+    border-top:1px solid;
+}
+
+tr.odd {
+    background-color:#FDEED3;
+}

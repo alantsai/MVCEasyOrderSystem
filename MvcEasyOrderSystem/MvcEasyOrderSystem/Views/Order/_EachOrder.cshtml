@@ -26,16 +26,21 @@
     <td>
         @if (ViewBag.ShowEdit == true)
         {
-            @Html.ActionLink("更新", "Edit", new { id = Model.OrderId }) <text>|</text>
-            @Html.ActionLink("訂單資料", "Details", new { id = Model.OrderId }) <text>|</text>
+            @Html.ActionLink("更新", "Edit", new { id = Model.OrderId }) 
+            <br />
+            <br />
+            @Html.ActionLink("資料", "Details", new { id = Model.OrderId }) 
+            <br />
+            <br />
         }
 @*            
             @Html.ActionLink("Delete", "Delete", new { id = Model.OrderId }) |*@
-        @Ajax.ActionLink("訂單明細", "OrderDetail", new { orderId = Model.OrderId }, new AjaxOptions()
+        @Ajax.ActionLink("明細", "OrderDetail", new { orderId = Model.OrderId }, new AjaxOptions()
             {
-                UpdateTargetId = "orderDetail",
+                UpdateTargetId = "ajax-orderDetail",
                 HttpMethod = "Get",
-                InsertionMode = InsertionMode.Replace
+                InsertionMode = InsertionMode.Replace,
+                LoadingElementId = "loading"
             })
     </td>
 </tr>

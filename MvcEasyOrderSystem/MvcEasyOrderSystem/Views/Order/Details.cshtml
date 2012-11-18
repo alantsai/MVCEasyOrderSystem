@@ -1,10 +1,9 @@
 ﻿@model MvcEasyOrderSystem.Models.Order
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "詳細資料";
 }
 
-<h2>Details</h2>
 
 <fieldset>
     <legend>Order</legend>
@@ -142,7 +141,7 @@
         @Html.DisplayFor(model => model.CollectDateTime)
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.OrderId }) |
-    @Html.ActionLink("Back to List", "Index")
+<p class="bottomLink">
+    @Html.ActionLink("修改", "Edit", new { id=Model.OrderId }) |
+    @Html.ActionLink("回到清單", "Index")
 </p>

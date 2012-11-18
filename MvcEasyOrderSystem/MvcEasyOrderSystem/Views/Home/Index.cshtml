@@ -8,44 +8,49 @@
     <ul>
         <li class="title">菜單分類</li>
         @Html.Action("CategoryWithCountMenu")
+
     </ul>
-    }
+    <ul>
+        <li class="title">排行(點即加入購物車)</li>
+        @Html.Action("Top10BestSale")
+    </ul>
+}
 
 
 
 
-    <div>
-        @using (Ajax.BeginForm("SearchByMealName", new AjaxOptions
+<div>
+    @using (Ajax.BeginForm("SearchByMealName", new AjaxOptions
             {
-                UpdateTargetId = "content",
+                UpdateTargetId = "ajax-update",
                 HttpMethod = "GET",
                 InsertionMode = InsertionMode.Replace,
                 LoadingElementId = "loading"
             }))
-        {
-            <input type="text" name="q" data-autocomplete="@Url.Action("AutoComplete")" />
-            <input type="submit" value="搜索" />
-        }
-    </div>
-
-    <div>
-        @Html.ActionLink("顯示全部菜單", "Index")
-
-    </div>
-
-    <div id="loading">
-        <img src="@Url.Content("~/Content/Img/ajax-loader.gif")" alt="載入中..." />
-    </div>
-
-    @{
-        //TODO: checkout the ajax function
+    {
+        <input type="text" name="q" data-autocomplete="@Url.Action("AutoComplete")" />
+        <input type="submit" value="搜索" />
     }
-    <div id="content">
-        @{
-            Html.RenderPartial("_GroupOfMeal", Model);
+</div>
+
+<div>
+    @Html.ActionLink("顯示全部菜單", "Index")
+
+</div>
+
+<div id="loading">
+    <img src="@Url.Content("~/Content/Img/ajax-loader.gif")" alt="載入中..." />
+</div>
+
+@{
+        //TODO: checkout the ajax function
+}
+<div id="ajax-update">
+    @{
+        Html.RenderPartial("_GroupOfMeal", Model);
             
-        }
-    </div>
+    }
+</div>
 
 
 
@@ -53,7 +58,7 @@
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jqueryval")
-@*    <script>
+    @*    <script>
         $(function () {
             $(':input[data-autocomplete]').each(function () {
                 $(this).autocomplete({ source: $(this).attr('data-autocomplete') });
