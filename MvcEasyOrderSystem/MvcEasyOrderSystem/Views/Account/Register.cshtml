@@ -3,31 +3,35 @@
     ViewBag.Title = "註冊";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>建立新的帳戶。</h2>
-</hgroup>
+@section menu{
+    <ul>
+        @{Html.RenderPartial("_LoginRelatedMenu");}
 
-@using (Html.BeginForm()) {
+    </ul>
+}
+
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
 
     <fieldset>
         <legend>註冊表單</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.UserName)
+
+        </div>
+        <div class="editor-field">@Html.TextBoxFor(m => m.UserName)</div>
+
+        <div class="editory-label">@Html.LabelFor(m => m.Password)</div>
+
+        <div class="editor-field">@Html.PasswordFor(m => m.Password)</div>
+
+        <div class="editory-label">@Html.LabelFor(m => m.ConfirmPassword)</div>
+
+        <div class="editor-field">@Html.PasswordFor(m => m.ConfirmPassword)</div>
+
+
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Customer.FirstName)
@@ -37,7 +41,7 @@
             @Html.ValidationMessageFor(model => model.Customer.FirstName)
         </div>
 
-                <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.Customer.LastName)
         </div>
         <div class="editor-field">
@@ -45,7 +49,7 @@
             @Html.ValidationMessageFor(model => model.Customer.LastName)
         </div>
 
-                <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.Customer.HomeNo)
         </div>
         <div class="editor-field">
@@ -53,7 +57,7 @@
             @Html.ValidationMessageFor(model => model.Customer.HomeNo)
         </div>
 
-                <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.Customer.MobileNo)
         </div>
         <div class="editor-field">
@@ -61,7 +65,7 @@
             @Html.ValidationMessageFor(model => model.Customer.MobileNo)
         </div>
 
-                <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.Customer.Address)
         </div>
         <div class="editor-field">
@@ -69,7 +73,7 @@
             @Html.ValidationMessageFor(model => model.Customer.Address)
         </div>
 
-                <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.Customer.Email)
         </div>
         <div class="editor-field">
@@ -83,7 +87,7 @@
 }
 
 @section Scripts {
-@*    <script>
+    @*    <script>
         $(function () {
            
 

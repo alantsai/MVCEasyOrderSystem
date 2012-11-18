@@ -1,65 +1,71 @@
 ﻿@model IEnumerable<MvcEasyOrderSystem.Models.Order>
 
-@{
+@*@{
     ViewBag.Title = ViewBag.Header;
-}
+}*@
 
 @section menu{
-    <div>    
+
+    <ul>
+        <li class="title">訂單分類</li>
     @Html.Action("CollectionMethodOrderMenu")
-        </div>
-    <div>
+    </ul>
+
+
+
+    <ul>
+        <li class="title">狀態分類</li>
+
         @Html.Action("StatusOrderMenu")
-    </div>
+    </ul>
+
 }
 
-@section content{
 
-    <h2>@ViewBag.Header</h2>
 
-        <div>
-        @Html.ActionLink("顯示所有訂單", "Index")
+<div>
+    @Html.ActionLink("顯示所有訂單", "Index")
 
-    </div>
+</div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.OrderDateTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RequireDateTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ReadyDateTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TotalPrice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status.StatusName)
-                </th>
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequireDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReadyDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status.StatusName)
+            </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Address_AddFull)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CollectDateTime)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                Html.RenderPartial("_EachOrder", item);
-            }
+            <th>
+                @Html.DisplayNameFor(model => model.Address_AddFull)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CollectDateTime)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            Html.RenderPartial("_EachOrder", item);
+        }
 
-        </tbody>
-    </table>
-    <div id="orderDetail">
-    </div>
-}
+    </tbody>
+</table>
+<div id="orderDetail">
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

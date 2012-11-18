@@ -38,6 +38,7 @@ namespace MvcEasyOrderSystem.ViewModels
 
         
         [DisplayName("郵遞區號")]
+        [Range(0, 999, ErrorMessage="0-99")]
         public Nullable<int> PostCode { get; set; }
 
 

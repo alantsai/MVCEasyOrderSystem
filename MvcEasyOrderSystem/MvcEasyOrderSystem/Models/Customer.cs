@@ -32,6 +32,7 @@ namespace MvcEasyOrderSystem.Models
         [DataType(DataType.PhoneNumber)]
         public string MobileNo { get; set; }
 
+        [DisplayName("地址")]
         public Address Address { get; set; }
 
         [DisplayName("Email")]

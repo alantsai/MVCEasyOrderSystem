@@ -5,13 +5,14 @@
 }
 
 @section menu{
-
-    @Html.Action("CategoryWithCountMenu")
-    
+    <ul>
+        <li class="title">菜單分類</li>
+        @Html.Action("CategoryWithCountMenu")
+    </ul>
     }
 
-@section content{
-    <h2>@ViewBag.Header</h2>
+
+
 
     <div>
         @using (Ajax.BeginForm("SearchByMealName", new AjaxOptions
@@ -39,14 +40,14 @@
     @{
         //TODO: checkout the ajax function
     }
-    <div id="content" class="category">
+    <div id="content">
         @{
             Html.RenderPartial("_GroupOfMeal", Model);
             
         }
     </div>
 
-}
+
 
 
 @section Scripts{

@@ -1,10 +1,10 @@
 ﻿@model MvcEasyOrderSystem.ViewModels.CreateOrderViewModel
 
 @{
-    ViewBag.Title = "ProcedToCheckout";
+    ViewBag.Title = "購買";
 }
 
-<h2>ProcedToCheckout</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
 {
@@ -91,7 +91,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="購買" />
         </p>
     </fieldset>
 }

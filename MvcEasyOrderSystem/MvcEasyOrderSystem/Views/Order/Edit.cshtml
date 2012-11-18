@@ -1,10 +1,10 @@
-﻿@model MvcEasyOrderSystem.Models.Order
+﻿@model MvcEasyOrderSystem.ViewModels.UpdateOrderViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "更新";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -12,168 +12,35 @@
     <fieldset>
         <legend>Order</legend>
 
-        @Html.HiddenFor(model => model.OrderId)
+        @Html.HiddenFor(model => model.Order.OrderId)
+
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.UserId, "Customer")
+            @Html.LabelFor(model => model.Order.Comment)
         </div>
         <div class="editor-field">
-            @Html.DropDownList("UserId", String.Empty)
-            @Html.ValidationMessageFor(model => model.UserId)
+            @Html.EditorFor(model => model.Order.Comment)
+            @Html.ValidationMessageFor(model => model.Order.Comment)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OrderDateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.OrderDateTime)
-            @Html.ValidationMessageFor(model => model.OrderDateTime)
-        </div>
+      
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.RequireDateTime)
+            @Html.LabelFor(model => model.StatusId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.RequireDateTime)
-            @Html.ValidationMessageFor(model => model.RequireDateTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ReadyDateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ReadyDateTime)
-            @Html.ValidationMessageFor(model => model.ReadyDateTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TotalPrice)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TotalPrice)
-            @Html.ValidationMessageFor(model => model.TotalPrice)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Comment)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Comment)
-            @Html.ValidationMessageFor(model => model.Comment)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CancelDateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CancelDateTime)
-            @Html.ValidationMessageFor(model => model.CancelDateTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Reason)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Reason)
-            @Html.ValidationMessageFor(model => model.Reason)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsCanceled)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsCanceled)
-            @Html.ValidationMessageFor(model => model.IsCanceled)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PaymentMethodId, "PaymentMethod")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("PaymentMethodId", String.Empty)
-            @Html.ValidationMessageFor(model => model.PaymentMethodId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CollectionMethodId, "CollectionMethod")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("CollectionMethodId", String.Empty)
-            @Html.ValidationMessageFor(model => model.CollectionMethodId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StatusId, "Status")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("StatusId", String.Empty)
+            @Html.DropDownListFor(model => model.StatusId, new SelectList(Model.Status,"StatusId", "StatusName"))
             @Html.ValidationMessageFor(model => model.StatusId)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DeliveryStartTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DeliveryStartTime)
-            @Html.ValidationMessageFor(model => model.DeliveryStartTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DeliveryEndTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DeliveryEndTime)
-            @Html.ValidationMessageFor(model => model.DeliveryEndTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address_AddCity)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Address_AddCity)
-            @Html.ValidationMessageFor(model => model.Address_AddCity)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address_AddDistrict)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Address_AddDistrict)
-            @Html.ValidationMessageFor(model => model.Address_AddDistrict)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address_AddFull)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Address_AddFull)
-            @Html.ValidationMessageFor(model => model.Address_AddFull)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address_PostCode)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Address_PostCode)
-            @Html.ValidationMessageFor(model => model.Address_PostCode)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CollectDateTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CollectDateTime)
-            @Html.ValidationMessageFor(model => model.CollectDateTime)
-        </div>
-
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="更新" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("回到清單", "Index")
 </div>
 
 @section Scripts {

@@ -10,10 +10,12 @@ using MvcEasyOrderSystem.ViewModels;
 using System.Configuration;
 using MvcEasyOrderSystem.Models.Repositry;
 using MvcEasyOrderSystem.BussinessLogic;
+using WebMatrix.WebData;
+using System.Web.Security;
 
 namespace MvcEasyOrderSystem.Controllers
 {
-    [Authorize(Roles="User")]
+    [Authorize(Roles="User, Admin")]
     public class OrderController : Controller
     {
         private IGenericRepository<Order> orderRepo;
@@ -161,7 +163,14 @@ namespace MvcEasyOrderSystem.Controllers
         {
             var order = orderRepo.GetWithFilterAndOrder((x => x.UserId == User.Identity.Name),
                 includeProperties: "CollectionMethod, Customer, PaymentMethod, Status");
-            ViewBag.Header = "所有訂單";
+            ViewBag.Title = "所有訂單";
+
+            if (Roles.IsUserInRole("Admin"))
+            {
+                order = orderRepo.GetWithFilterAndOrder(
+                includeProperties: "CollectionMethod, Customer, PaymentMethod, Status");
+                ViewBag.ShowEdit = true;
+            }
 
             return View(order.ToList());
         }
@@ -171,10 +180,17 @@ namespace MvcEasyOrderSystem.Controllers
             var order = orderRepo.GetWithFilterAndOrder((x => x.UserId == User.Identity.Name
                 && x.CollectionMethodId == id), includeProperties: "CollectionMethod");
 
+            if (Roles.IsUserInRole("Admin"))
+            {
+                order = orderRepo.GetWithFilterAndOrder(x => x.CollectionMethodId == id);
+                ViewBag.ShowEdit = true;
+            }
+
             if (order.Count() != 0)
             {
 
-                ViewBag.Header =string.Format("收貨方式({0})清單",order.FirstOrDefault().CollectionMethod.CollectionMethodName);
+                ViewBag.Title =string.Format("收貨方式({0})清單",order.FirstOrDefault().CollectionMethod.CollectionMethodName);
+                ViewBag.ShowEdit = true;
             }
 
             return View("Index", order);
@@ -185,10 +201,16 @@ namespace MvcEasyOrderSystem.Controllers
             var order = orderRepo.GetWithFilterAndOrder((x => x.UserId == User.Identity.Name
                 && x.StatusId == id), includeProperties: "Status");
 
+            if (Roles.IsUserInRole("Admin"))
+            {
+                order = orderRepo.GetWithFilterAndOrder(x => x.StatusId == id);
+                ViewBag.ShowEdit = true;
+            }
+
             if (order.Count() != 0)
             {
 
-                ViewBag.Header = string.Format("訂單狀況({0})清單", order.FirstOrDefault().Status.StatusName);
+                ViewBag.Title = string.Format("訂單狀況({0})清單", order.FirstOrDefault().Status.StatusName);
             }
 
             return View("Index", order);
@@ -197,7 +219,13 @@ namespace MvcEasyOrderSystem.Controllers
         [ChildActionOnly]
         public PartialViewResult CollectionMethodOrderMenu()
         {
-            var query = orderRepo.GetWithFilterAndOrder();
+            var query = orderRepo.GetWithFilterAndOrder((x=> x.UserId == User.Identity.Name));
+
+            if (Roles.IsUserInRole("Admin"))
+            {
+                query = orderRepo.GetWithFilterAndOrder();
+                ViewBag.ShowEdit = true;
+            }
 
             var group = from m in query
                         group m by m.CollectionMethod.CollectionMethodName into g
@@ -211,7 +239,14 @@ namespace MvcEasyOrderSystem.Controllers
         [ChildActionOnly]
         public PartialViewResult StatusOrderMenu()
         {
-            var query = orderRepo.GetWithFilterAndOrder();
+            
+            var query = orderRepo.GetWithFilterAndOrder(x => x.UserId == User.Identity.Name);
+
+            if (Roles.IsUserInRole("Admin"))
+            {
+                query = orderRepo.GetWithFilterAndOrder();
+                ViewBag.ShowEdit = true;
+            }
 
             var group = from m in query
                         group m by m.Status.StatusName into g
@@ -225,7 +260,7 @@ namespace MvcEasyOrderSystem.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Order order = db.Order.Find(id);
+            Order order = orderRepo.GetSingleEntity(x => x.OrderId == id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -233,72 +268,87 @@ namespace MvcEasyOrderSystem.Controllers
             return View(order);
         }
 
-        //
-        // GET: /Checkout/Create
+        ////
+        //// GET: /Checkout/Create
 
-        public ActionResult Create()
-        {
-            ViewBag.CollectionMethodId = new SelectList(db.CollectionMethod, "CollectionMethodId", "CollectionMethodName");
-            ViewBag.UserId = new SelectList(db.Customer, "UserId", "FirstName");
-            ViewBag.PaymentMethodId = new SelectList(db.PaymentMethod, "PaymentMethodId", "PaymentMethodName");
-            ViewBag.StatusId = new SelectList(db.Status, "StatusId", "StatusName");
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    ViewBag.CollectionMethodId = new SelectList(db.CollectionMethod, "CollectionMethodId", "CollectionMethodName");
+        //    ViewBag.UserId = new SelectList(db.Customer, "UserId", "FirstName");
+        //    ViewBag.PaymentMethodId = new SelectList(db.PaymentMethod, "PaymentMethodId", "PaymentMethodName");
+        //    ViewBag.StatusId = new SelectList(db.Status, "StatusId", "StatusName");
+        //    return View();
+        //}
 
-        //
-        // POST: /Checkout/Create
+        ////
+        //// POST: /Checkout/Create
 
-        [HttpPost]
-        public ActionResult Create(Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Order.Add(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //public ActionResult Create(Order order)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Order.Add(order);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            ViewBag.CollectionMethodId = new SelectList(db.CollectionMethod, "CollectionMethodId", "CollectionMethodName", order.CollectionMethodId);
-            ViewBag.UserId = new SelectList(db.Customer, "UserId", "FirstName", order.UserId);
-            ViewBag.PaymentMethodId = new SelectList(db.PaymentMethod, "PaymentMethodId", "PaymentMethodName", order.PaymentMethodId);
-            ViewBag.StatusId = new SelectList(db.Status, "StatusId", "StatusName", order.StatusId);
-            return View(order);
-        }
+        //    ViewBag.CollectionMethodId = new SelectList(db.CollectionMethod, "CollectionMethodId", "CollectionMethodName", order.CollectionMethodId);
+        //    ViewBag.UserId = new SelectList(db.Customer, "UserId", "FirstName", order.UserId);
+        //    ViewBag.PaymentMethodId = new SelectList(db.PaymentMethod, "PaymentMethodId", "PaymentMethodName", order.PaymentMethodId);
+        //    ViewBag.StatusId = new SelectList(db.Status, "StatusId", "StatusName", order.StatusId);
+        //    return View(order);
+        //}
 
         //
         // GET: /Checkout/Edit/5
-
+        [Authorize(Roles="Admin")]
         public ActionResult Edit(int id = 0)
         {
-            Order order = db.Order.Find(id);
+            Order order = orderRepo.GetSingleEntity(x=> x.OrderId == id);
             if (order == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CollectionMethodId = new SelectList(db.CollectionMethod, "CollectionMethodId", "CollectionMethodName", order.CollectionMethodId);
-            ViewBag.UserId = new SelectList(db.Customer, "UserId", "FirstName", order.UserId);
-            ViewBag.PaymentMethodId = new SelectList(db.PaymentMethod, "PaymentMethodId", "PaymentMethodName", order.PaymentMethodId);
-            ViewBag.StatusId = new SelectList(db.Status, "StatusId", "StatusName", order.StatusId);
-            return View(order);
+
+            var viewModel = new UpdateOrderViewModel();
+
+            viewModel.Status = db.Status;
+            viewModel.Order = order;
+            viewModel.StatusId = order.StatusId;
+
+            //ViewBag.CollectionMethodId = new SelectList(db.CollectionMethod, "CollectionMethodId", "CollectionMethodName", order.CollectionMethodId);
+            //ViewBag.UserId = new SelectList(db.Customer, "UserId", "FirstName", order.UserId);
+            //ViewBag.PaymentMethodId = new SelectList(db.PaymentMethod, "PaymentMethodId", "PaymentMethodName", order.PaymentMethodId);
+            //ViewBag.StatusId = new SelectList(db.Status, "StatusId", "StatusName", order.StatusId);
+            return View(viewModel);
         }
 
         //
         // POST: /Checkout/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Order order)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(UpdateOrderViewModel viewModel)
         {
+            Order order = null;
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
+                order = orderRepo.GetSingleEntity(x => x.OrderId == viewModel.Order.OrderId);
+
+                order.StatusId = viewModel.StatusId;
+                order.Comment = viewModel.Order.Comment;
+
+                orderRepo.Update(order);
+                orderRepo.SaveChanges();
+
                 return RedirectToAction("Index");
             }
-            ViewBag.CollectionMethodId = new SelectList(db.CollectionMethod, "CollectionMethodId", "CollectionMethodName", order.CollectionMethodId);
-            ViewBag.UserId = new SelectList(db.Customer, "UserId", "FirstName", order.UserId);
-            ViewBag.PaymentMethodId = new SelectList(db.PaymentMethod, "PaymentMethodId", "PaymentMethodName", order.PaymentMethodId);
-            ViewBag.StatusId = new SelectList(db.Status, "StatusId", "StatusName", order.StatusId);
-            return View(order);
+
+            viewModel.Status = db.Status;
+            viewModel.Order = order;
+           
+            return View(viewModel);
         }
 
         //

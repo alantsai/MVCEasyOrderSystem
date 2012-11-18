@@ -9,12 +9,67 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css/default.css")
 </head>
 <body>
-    <header>
+    <div id="wrapper">
+
+        <div id="header">
+            <h1>@Html.ActionLink("EOS", "Index", "Home")</h1>
+            <p class="underH1">最簡單的訂單系統</p>
+
+            <p class="login">
+                @*<img src="@Url.Content("~/Content/img/button_cart.gif")" alt="確認購物車內容" />*@
+                    @Html.Partial("_LoginPartial")
+            </p>
+
+
+            <ul class="global_navi">
+                <li>@Html.ActionLink("瀏覽菜單", "Index", "Home")</li>
+                <li>@{ Html.RenderAction("ShoppingCartCount", "ShoppingCart"); }</li>
+
+                @{ if (Request.IsAuthenticated)
+                   {
+                       if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("User"))
+                       {
+                           Html.RenderPartial("_UserMenuList");
+                       }
+                       if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("Admin"))
+                       {
+                           Html.RenderPartial("_AdminMenuList");
+                       }
+
+                   }
+                }
+
+            </ul>
+        </div>
+
+        <div id="content" class="clearfix">
+
+                            @RenderSection("fullpage", false)
+            
+
+            <div class="leftBox">
+                @RenderSection("menu", false)
+
+            </div>
+
+            <div class="wrap clearfix">
+            <h3>@ViewBag.Title</h3>                
+
+             @RenderBody()
+            </div>
+
+        </div>
+
+        <div id="footer"></div>
+
+    </div>
+    @*    <header>
         <div class="content-wrapper">
             <div class="float-left">
-                <p class="site-title">@Html.ActionLink("您標誌的位置", "Index", "Home")</p>
+                <p class="site-title">@Html.ActionLink("EOS:最簡單的訂單系統", "Index", "Home")</p>
             </div>
             <div class="float-right">
                 <section id="login">
@@ -23,13 +78,22 @@
                 <nav>
                     <ul id="menu">
                         <li>@Html.ActionLink("瀏覽菜單", "Index", "Home")</li>
-                        <li>@Html.ActionLink("關於", "About", "Home")</li>
-                        <li>@Html.ActionLink("連絡", "Contact", "Home")</li>  
                         <li>@{ Html.RenderAction("ShoppingCartCount", "ShoppingCart"); }</li>
-                        @if (User.IsInRole("User"))
-                        {
-                            Html.Partial("_UserMenuList");
+
+                        @{ if (Request.IsAuthenticated)
+                           {
+                               if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("User"))
+                               {
+                                   Html.RenderPartial("_UserMenuList");
+                               }
+                               if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("Admin"))
+                               {
+                                   Html.RenderPartial("_AdminMenuList");
+                               }
+                               
+                           }
                         }
+
                     </ul>
                 </nav>
             </div>
@@ -38,12 +102,12 @@
     <div id="body">
         @RenderSection("featured", required: false)
         <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
+            @RenderBody()
             <div class="menu float-left">
                 @RenderSection("menu", false)
             </div>
             <div class="content">
-            @RenderSection("content", false)
+                @RenderSection("content", false)
             </div>
         </section>
     </div>
@@ -53,7 +117,7 @@
                 <p>&copy; @DateTime.Now.Year - EOS:最簡單訂單系統</p>
             </div>
         </div>
-    </footer>
+    </footer>*@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/Scripts/EOS.js")

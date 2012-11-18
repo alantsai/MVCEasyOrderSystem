@@ -24,10 +24,14 @@
         @Html.DisplayFor(model => model.CollectDateTime)
     </td>
     <td>
-@*        @Html.ActionLink("Edit", "Edit", new { id = Model.OrderId }) |
-            @Html.ActionLink("Details", "Details", new { id = Model.OrderId }) |
+        @if (ViewBag.ShowEdit == true)
+        {
+            @Html.ActionLink("更新", "Edit", new { id = Model.OrderId }) <text>|</text>
+            @Html.ActionLink("訂單資料", "Details", new { id = Model.OrderId }) <text>|</text>
+        }
+@*            
             @Html.ActionLink("Delete", "Delete", new { id = Model.OrderId }) |*@
-            @Ajax.ActionLink("顯示詳細", "OrderDetail", new { orderId = Model.OrderId }, new AjaxOptions()
+        @Ajax.ActionLink("訂單明細", "OrderDetail", new { orderId = Model.OrderId }, new AjaxOptions()
             {
                 UpdateTargetId = "orderDetail",
                 HttpMethod = "Get",

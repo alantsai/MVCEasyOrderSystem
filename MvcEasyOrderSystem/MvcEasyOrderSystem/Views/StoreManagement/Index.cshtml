@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<MvcEasyOrderSystem.Models.Meal>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "菜單管理";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("增加菜單", "Create")
 </p>
 <table>
     <tr>
@@ -41,8 +41,8 @@
             @Html.DisplayFor(modelItem => item.Image)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MealId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MealId }) |
+            @Html.ActionLink("修改", "Edit", new { id=item.MealId }) |
+            @Html.ActionLink("詳細", "Details", new { id=item.MealId }) |
         </td>
     </tr>
 }

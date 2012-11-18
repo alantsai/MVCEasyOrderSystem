@@ -3,29 +3,23 @@
     ViewBag.Title = "管理帳戶";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+@section menu{
+    <ul>
+        <li class="title">管理個人帳戶</li>
+        <li>@Html.ActionLink("修改個人資料", "EditUserInfo")</li>
+
+    </ul>
+}
+
 
 <p class="message-success">@ViewBag.StatusMessage</p>
 
-<p>您已利用 <strong>@User.Identity.Name</strong>. 的身分登入。</p>
+<p>您已利用 <strong>@User.Identity.Name</strong>. 的身分登入。<br /></p>
 
-@if (ViewBag.HasLocalPassword)
-{
+
     @Html.Partial("_ChangePasswordPartial")
-}
-else
-{ 
-    @Html.Partial("_SetPasswordPartial")
-}
 
-<section id="externalLogins">
-    @Html.Action("RemoveExternalLogins")
 
-    <h3>新增外部登入</h3>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

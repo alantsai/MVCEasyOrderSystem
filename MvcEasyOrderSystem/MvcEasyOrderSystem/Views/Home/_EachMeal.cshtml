@@ -1,19 +1,33 @@
 ﻿@model MvcEasyOrderSystem.Models.Meal
 
-    <article class="meal">
+<li>
+@Html.DisplayFor(modelItem => modelItem.Image, new { alt = Model.MealName + "圖片" })
+<p class="itemName">@Html.DisplayFor(modelItem => modelItem.MealName)</p>
+    <p class="itemDetailTxt">
+        <text>類別:</text>
+                @Html.ActionLink(Model.Category.CategoryName, "ShowByCategory", new { categoryId = Model.CategoryId })
+                        <text>餐館:</text>
+                @Model.Supplier.CompanyName
+    </p>
+
+    <p><tex>價格:</tex><strong>@Html.DisplayFor(modelItem => modelItem.Price)</strong></p>
+    <p>@Html.ActionLink("購買", "AddToCart", "ShoppingCart", new { mealId = Model.MealId }, new { @class="addToShoppingCart"})</p>
+</li>
+
+@*    <article class="meal">
 
         <div class="meal-picture">
             @Html.DisplayFor(modelItem => modelItem.Image, new { alt = Model.MealName + "圖片" })
         </div>
         <div class="meal-detail">
             <section class="meal-info">
-                <h2>@Html.DisplayFor(modelItem => modelItem.MealName)</h2>
+                <h2></h2>
                 <text>類別:</text>
                 @Html.ActionLink(Model.Category.CategoryName, "ShowByCategory", new { categoryId = Model.CategoryId })
             </section>
             <section class="meal-restruantInfo">
                 <text>餐館:</text>
-                @Html.ActionLink(Model.Supplier.CompanyName, "ShowBySupplier", "BrowseBySupplier", new { supplierId = Model.SupplierId }, null)
+                @Model.Supplier.CompanyName
             </section>
             <div>
                 <tex>價格:</tex>@Html.DisplayFor(modelItem => modelItem.Price)
@@ -23,4 +37,4 @@
                 @Html.ActionLink("購買", "AddToCart", "ShoppingCart", new { mealId = Model.MealId }, null)
             </div>
         </div>
-    </article>
+    </article>*@

@@ -236,17 +236,63 @@
     <Compile Include="ViewModels\ForgetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Group.cs" />
     <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
+    <Compile Include="ViewModels\UpdateOrderViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\EasyOrderSystem.mdf" />
     <Content Include="App_Data\EasyOrderSystem_log.ldf">
       <DependentUpon>EasyOrderSystem.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\img\1.jpg" />
-    <Content Include="Content\img\7f81d9af-0af0-456b-89be-d5e329b6e6af.jpg" />
-    <Content Include="Content\img\842e00fd-60e7-4f1d-852c-4ae1dc4b37ca.jpg" />
+    <Content Include="Content\css\default.css" />
+    <Content Include="Content\img\bg_line01.gif" />
+    <Content Include="Content\img\button_cart.gif" />
+    <Content Include="Content\img\button_cart_in.gif" />
+    <Content Include="Content\img\contents_bg.gif" />
+    <Content Include="Content\img\faq_bg.gif" />
+    <Content Include="Content\img\footer_bg.gif" />
+    <Content Include="Content\img\head_bg.gif" />
+    <Content Include="Content\img\head_list_bg.gif" />
+    <Content Include="Content\img\head_list_rarr.gif" />
+    <Content Include="Content\img\head_logo.gif" />
+    <Content Include="Content\img\index_bg.gif" />
+    <Content Include="Content\img\index_bg_01.gif" />
+    <Content Include="Content\img\index_bg_02.gif" />
+    <Content Include="Content\img\index_bg_03.gif" />
+    <Content Include="Content\img\index_bg_04.gif" />
+    <Content Include="Content\img\index_contents_bg.gif" />
+    <Content Include="Content\img\item_bottom_01.gif" />
+    <Content Include="Content\img\item_bottom_02.gif" />
+    <Content Include="Content\img\item_top_01.gif" />
+    <Content Include="Content\img\item_top_02.gif" />
+    <Content Include="Content\img\leftbox_bg_01.gif" />
+    <Content Include="Content\img\leftbox_bg_02.gif" />
+    <Content Include="Content\img\leftbox_bg_03.gif" />
+    <Content Include="Content\img\leftside_title_01.gif" />
+    <Content Include="Content\img\leftside_title_02.gif" />
+    <Content Include="Content\img\list_bg_01.gif" />
+    <Content Include="Content\img\list_bg_02.gif" />
+    <Content Include="Content\img\list_bg_03.gif" />
+    <Content Include="Content\img\list_h3_bg.gif" />
+    <Content Include="Content\img\list_itembox_line01.gif" />
+    <Content Include="Content\img\list_itembox_line02.gif" />
+    <Content Include="Content\img\menu_bg_01.gif" />
+    <Content Include="Content\img\menu_bg_02.gif" />
+    <Content Include="Content\img\menu_bg_02_on.gif" />
+    <Content Include="Content\img\privacy_bg.gif" />
+    <Content Include="Content\img\rightside_title_01.gif" />
+    <Content Include="Content\img\sidemenu_bg.gif" />
+    <Content Include="Content\img\sidemenu_bg.png" />
+    <Content Include="Content\img\special_bg_01.gif" />
+    <Content Include="Content\img\special_bg_02.gif" />
+    <Content Include="Content\ProductImg\1.jpg" />
+    <Content Include="Content\ProductImg\2252d63e-51d8-41fa-a646-2df28b203677.jpg" />
+    <Content Include="Content\ProductImg\7126dc57-b010-4f34-8a35-8b133e7ccf4e.jpg" />
+    <Content Include="Content\ProductImg\7f81d9af-0af0-456b-89be-d5e329b6e6af.jpg" />
+    <Content Include="Content\ProductImg\842e00fd-60e7-4f1d-852c-4ae1dc4b37ca.jpg" />
     <Content Include="Content\img\ajax-loader.gif" />
-    <Content Include="Content\img\Penguins.jpg" />
+    <Content Include="Content\ProductImg\9e8af970-5d18-4e9c-aab1-470f209a650f.jpg" />
+    <Content Include="Content\ProductImg\f09ae353-db4a-4753-ac4a-fe5ec80a2dd6.jpg" />
+    <Content Include="Content\ProductImg\Penguins.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -343,14 +389,9 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -385,7 +426,7 @@
     <Content Include="Views\OrderDetail\Delete.cshtml" />
     <Content Include="Views\Order\OrderDetail.cshtml" />
     <Content Include="Views\Home\_EachMeal.cshtml" />
-    <Content Include="Views\Account\ShowUserInfo.cshtml">
+    <Content Include="Views\Account\EditUserInfo.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Home\_GroupOfMeal.cshtml" />
@@ -401,6 +442,8 @@
     <Content Include="Views\Order\_EachOrder.cshtml" />
     <Content Include="Views\Order\_ShowMenu.cshtml" />
     <Content Include="Views\Shared\_UserMenuList.cshtml" />
+    <Content Include="Views\Shared\_AdminMenuList.cshtml" />
+    <Content Include="Views\Account\_LoginRelatedMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201211072154395_Initial.resx">

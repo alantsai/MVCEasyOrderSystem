@@ -26,6 +26,7 @@ namespace MvcEasyOrderSystem.Models
 
 
         [DisplayName("郵遞區號")]
+        [Range(0,999, ErrorMessage="{0}在{1},{2}之間")]
         public int PostCode { get; set; }
 
 

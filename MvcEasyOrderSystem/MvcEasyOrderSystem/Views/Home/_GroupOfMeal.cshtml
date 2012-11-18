@@ -4,18 +4,17 @@
 @foreach (var items in Model)
 {
 
-        <hr />
-        <div class="categoryName">
-            @items.Key.ToString()
-        </div>
-        <hr />
+    <h4 class="itemCategory">
+        @items.Key.ToString()
+    </h4>
 
-        foreach (var item in items)
+    <ul class="itemList clear">
+        @foreach (var item in items)
         {
             Html.RenderPartial("_EachMeal", item);
         }
 
-
+    </ul>
     
    
     
