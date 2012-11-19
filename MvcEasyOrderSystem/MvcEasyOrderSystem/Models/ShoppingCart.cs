@@ -10,6 +10,8 @@ namespace MvcEasyOrderSystem.Models
     public partial class ShoppingCart
     {
         public int ShoppingCartId { get; set; }
+
+        [DisplayName("餐名編號")]
         public int MealId { get; set; }
 
         [DisplayName("數量")]

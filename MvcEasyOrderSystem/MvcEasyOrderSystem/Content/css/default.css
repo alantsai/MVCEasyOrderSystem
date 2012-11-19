@@ -866,3 +866,7 @@ tfoot tr {
 tr.odd {
     background-color:#FDEED3;
 }
+
+#header h1 {
+    font-size:50px;
+}

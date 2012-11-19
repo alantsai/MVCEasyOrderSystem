@@ -1,0 +1,39 @@
+﻿@model IEnumerable<System.Linq.IGrouping<string, MvcEasyOrderSystem.Models.Meal>>
+
+@{
+    ViewBag.Title = "所有菜單";
+}
+
+@section menu{
+    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+
+        <li data-role="list-divider">菜單分類</li>
+        @Html.Action("CategoryWithCountMenu")
+
+    </ul>
+
+
+}
+        @{
+            Html.RenderPartial("_GroupOfMeal", Model);
+            
+        }
+
+
+@*<div data-role="page" data-theme="a" id="meal">
+    @Html.Partial("_ViewSwitcher")
+
+    <div data-role="header">
+        <h1>@ViewBag.Title</h1>
+    </div>
+
+
+        @{
+            Html.RenderPartial("_GroupOfMeal", Model);
+            
+        }
+    <div data-role="footer">
+        <h4>2012 微軟雲端人才培訓B班: Alan</h4>
+    </div>
+
+</div>*@

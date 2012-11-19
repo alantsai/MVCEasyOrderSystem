@@ -1,0 +1,66 @@
+﻿@model MvcEasyOrderSystem.ViewModels.ShoppingCartViewModel
+
+
+<div data-role="page" data-theme="a">
+    <div data-role="header">
+        <h1>@ViewBag.Title</h1>
+    </div>
+
+    <div data-role="content">
+        <ul>
+            @foreach (var items in Model)
+            {
+                @Html.Partial("_ViewSwitcher")
+
+
+
+                <li>
+                    <a href="">
+                        <h3>@Html.DisplayFor(modelItem => item.MealName)</h3>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </p>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                        </p>
+
+                        <p>
+                            @Html.DisplayFor(modelItem => item.FullPrice)
+                        </p>
+                    </a>
+                </li>
+     
+ 
+            }
+        </ul>
+
+    </div>
+
+    <div data-role="footer">
+        <div data-role="navbar">
+            <ul>
+                <li>@Html.ActionLink("瀏覽菜單", "Index", "Home", null, new { data_icon = "home" })</li>
+
+                @if ((Request.IsAuthenticated == false)
+                    || (!Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("Admin")))
+                {
+                    <li>@{ Html.RenderAction("ShoppingCartCount", "ShoppingCart"); }</li>
+                }
+                @{ if (Request.IsAuthenticated)
+                   {
+                       if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("User"))
+                       {
+                           Html.RenderPartial("_UserMenuList");
+                       }
+                       if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("Admin"))
+                       {
+                           Html.RenderPartial("_AdminMenuList");
+                       }
+
+                   }
+                }
+            </ul>
+        </div>
+        <h4>2012 微軟雲端人才培訓B班: Alan</h4>
+    </div>
+</div>

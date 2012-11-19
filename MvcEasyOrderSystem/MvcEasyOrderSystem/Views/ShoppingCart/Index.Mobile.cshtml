@@ -1,0 +1,31 @@
+﻿@model MvcEasyOrderSystem.ViewModels.ShoppingCartViewModel
+
+
+
+
+@{
+    Html.RenderPartial("_ShoppingCart", Model);
+}
+
+@section menu
+{
+    <ul>
+        @if (@Model.CartItems.Count != 0)
+        {
+
+            <li class="title">購物車功能</li>
+            <li>@Html.ActionLink("清空購物車", "EmptyShoppingCart", new { userId = @Model.CartItems[0].UserId })</li>
+            <li>@Html.ActionLink("買單", "ProcedToCheckout", "Order", null, null)</li>
+
+        }
+    </ul>
+}
+
+@*<div style="margin-top:20px">
+    @if (@Model.CartItems.Count != 0)
+    {
+        @Html.ActionLink("清空購物車", "EmptyShoppingCart", new { userId = @Model.CartItems[0].UserId })
+        @Html.ActionLink("買單", "ProcedToCheckout", "Order", null, null)
+    }
+
+</div>*@

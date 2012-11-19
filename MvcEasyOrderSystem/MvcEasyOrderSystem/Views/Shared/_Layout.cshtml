@@ -13,6 +13,7 @@
 </head>
 <body>
     <div id="wrapper">
+        @Html.Partial("_ViewSwitcher")
 
         <div id="header">
             <h1>@Html.ActionLink("EOS", "Index", "Home")</h1>
@@ -67,7 +68,9 @@
 
         </div>
 
-        <div id="footer"></div>
+        <div id="footer">
+            <p>2012 微軟雲端人才培訓B班: Alan</p>
+        </div>
 
     </div>
     @*    <header>

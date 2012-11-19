@@ -1,0 +1,11 @@
+﻿@model MvcEasyOrderSystem.Models.Meal
+
+
+<li style="">
+    @Html.DisplayFor(modelItem => modelItem.Image, new { alt = Model.MealName + "圖片" })
+    <h3>@Html.DisplayFor(modelItem => modelItem.MealName)</h3>
+    <p>@Model.Supplier.CompanyName</p>
+    <p>價錢:<strong>@Html.DisplayFor(modelItem => modelItem.Price)</strong></p>
+     <p>@Html.ActionLink("購買", "AddToCart", "ShoppingCart", new { mealId = Model.MealId }, new { @class="addToShoppingCart"})</p>
+</li>
+

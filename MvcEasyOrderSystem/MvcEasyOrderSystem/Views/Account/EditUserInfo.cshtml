@@ -4,6 +4,14 @@
     ViewBag.Title = "修改個人資料";
 }
 
+@section menu{
+    <ul>
+        <li class="title">管理個人帳戶</li>
+        <li>@Html.ActionLink("修改個人資料", "EditUserInfo")</li>
+
+    </ul>
+}
+
 <div style="color:red; font-size:x-large">@ViewBag.Message</div>
 
 @using (Html.BeginForm()) {

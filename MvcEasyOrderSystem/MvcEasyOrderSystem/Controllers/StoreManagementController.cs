@@ -77,7 +77,7 @@ namespace MvcEasyOrderSystem.Controllers
                 };
                 {
                     string savedFileName = Guid.NewGuid().ToString() + "." + (hpf.FileName.Split('.')).Last();
-                    string path = Path.Combine(Server.MapPath("~/content/img"), savedFileName);
+                    string path = Path.Combine(Server.MapPath("~/Content/ProductImg"), savedFileName);
 
                     hpf.SaveAs(path);
 
@@ -158,7 +158,7 @@ namespace MvcEasyOrderSystem.Controllers
                 if (hpf != null && hpf.ContentLength != 0)
                 {
                     string savedFileName = Guid.NewGuid().ToString() + "." + (hpf.FileName.Split('.')).Last();
-                    string path = Path.Combine(Server.MapPath("~/content/img"), savedFileName);
+                    string path = Path.Combine(Server.MapPath("~/Content/ProductImg"), savedFileName);
 
                     hpf.SaveAs(path);
 

@@ -1,0 +1,29 @@
+﻿@using MvcEasyOrderSystem.ViewModels
+@model List<Group<string, int>>
+
+@{
+    ViewBag.Title = "前五名銷售冠軍";
+}
+
+
+<table>
+    <thead>
+        <tr>
+            <th>餐名</th>
+            <th>購買次數</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model){
+            <tr>
+                <td>@item.Key</td>
+                <td>@item.Value</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+   <div>
+            <img src="/Stats/GetSaleRankChart" />
+    </div>

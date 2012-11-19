@@ -44,12 +44,17 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -93,10 +98,6 @@
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -158,6 +159,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleMobileConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -169,7 +171,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Controllers\StoreManagementController.cs" />
+    <Compile Include="Controllers\ViewSwitcherController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -214,6 +218,10 @@
     <Compile Include="Migrations\201211131437187_changeUserIdType.Designer.cs">
       <DependentUpon>201211131437187_changeUserIdType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201211190202169_mobile.cs" />
+    <Compile Include="Migrations\201211190202169_mobile.Designer.cs">
+      <DependentUpon>201211190202169_mobile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -244,6 +252,12 @@
       <DependentUpon>EasyOrderSystem.mdf</DependentUpon>
     </Content>
     <Content Include="Content\css\default.css" />
+    <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\ajax-loader.png" />
+    <Content Include="Content\images\icons-18-black.png" />
+    <Content Include="Content\images\icons-18-white.png" />
+    <Content Include="Content\images\icons-36-black.png" />
+    <Content Include="Content\images\icons-36-white.png" />
     <Content Include="Content\img\bg_line01.gif" />
     <Content Include="Content\img\button_cart.gif" />
     <Content Include="Content\img\button_cart_in.gif" />
@@ -284,6 +298,12 @@
     <Content Include="Content\img\sidemenu_bg.png" />
     <Content Include="Content\img\special_bg_01.gif" />
     <Content Include="Content\img\special_bg_02.gif" />
+    <Content Include="Content\jquery.mobile-1.1.1.css" />
+    <Content Include="Content\jquery.mobile-1.1.1.min.css" />
+    <Content Include="Content\jquery.mobile.structure-1.1.1.css" />
+    <Content Include="Content\jquery.mobile.structure-1.1.1.min.css" />
+    <Content Include="Content\jquery.mobile.theme-1.1.1.css" />
+    <Content Include="Content\jquery.mobile.theme-1.1.1.min.css" />
     <Content Include="Content\ProductImg\1.jpg" />
     <Content Include="Content\ProductImg\2252d63e-51d8-41fa-a646-2df28b203677.jpg" />
     <Content Include="Content\ProductImg\7126dc57-b010-4f34-8a35-8b133e7ccf4e.jpg" />
@@ -293,6 +313,7 @@
     <Content Include="Content\ProductImg\9e8af970-5d18-4e9c-aab1-470f209a650f.jpg" />
     <Content Include="Content\ProductImg\f09ae353-db4a-4753-ac4a-fe5ec80a2dd6.jpg" />
     <Content Include="Content\ProductImg\Penguins.jpg" />
+    <Content Include="Content\Site.Mobile.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -356,6 +377,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.1.1.js" />
+    <Content Include="Scripts\jquery.mobile-1.1.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -374,19 +397,6 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\orderedList0.png" />
-    <Content Include="Images\orderedList1.png" />
-    <Content Include="Images\orderedList2.png" />
-    <Content Include="Images\orderedList3.png" />
-    <Content Include="Images\orderedList4.png" />
-    <Content Include="Images\orderedList5.png" />
-    <Content Include="Images\orderedList6.png" />
-    <Content Include="Images\orderedList7.png" />
-    <Content Include="Images\orderedList8.png" />
-    <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -445,6 +455,15 @@
     <Content Include="Views\Account\_LoginRelatedMenu.cshtml" />
     <Content Include="Views\Home\_Top10BestSale.cshtml" />
     <Content Include="Views\StoreManagement\_MealFunctionMenu.cshtml" />
+    <Content Include="Views\Stats\Index.cshtml" />
+    <Content Include="Views\Shared\_ViewSwitcher.cshtml" />
+    <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
+    <Content Include="Views\Home\Index.Mobile.cshtml" />
+    <Content Include="Views\Home\_CategoryWithCountMenu.Mobile.cshtml" />
+    <Content Include="Views\Home\_GroupOfMeal.Mobile.cshtml" />
+    <Content Include="Views\Home\_EachMeal.Mobile.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.Mobile.cshtml" />
+    <Content Include="Views\Shared\_ShoppingCart.Mobile.dsf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201211072154395_Initial.resx">
@@ -476,6 +495,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201211131437187_changeUserIdType.resx">
       <DependentUpon>201211131437187_changeUserIdType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201211190202169_mobile.resx">
+      <DependentUpon>201211190202169_mobile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

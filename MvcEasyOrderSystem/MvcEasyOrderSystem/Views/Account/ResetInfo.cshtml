@@ -1,8 +1,12 @@
 ﻿@{
-    ViewBag.Title = "ResetInfo";
+    ViewBag.Title = "忘記密碼";
 }
+@section menu{
+    <ul>
+        @{Html.RenderPartial("_LoginRelatedMenu");}
 
-<h2>忘記密碼</h2>
+    </ul>
+}
 
 <p>重設密碼的連結已經被寄到你註冊使用的email，請按照email上面所說的去做</p>
 

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<System.Linq.IGrouping<string, MvcEasyOrderSystem.Models.Meal>>
+
+
+@foreach (var items in Model)
+{
+    
+    <div data-role="page" data-theme="a"  id="@items.Key">
+        @Html.Partial("_ViewSwitcher")
+
+        <div data-role="header">
+            <h1>@ViewBag.Title</h1>
+        </div>
+
+        <div data-role="content">
+
+            <ul style="list-style-type: none"
+                data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"
+                data-filter="true" data-filter-placeholder="請輸入要搜索菜名">
+                <li data-role="list-divider">@items.Key</li>
+
+                @foreach (var item in items)
+                {
+                    Html.RenderPartial("_EachMeal", item);
+                }
+
+            </ul>
+        </div>
+
+        <div data-role="footer">
+                              <div data-role="navbar">
+                    <ul>
+                        <li>@Html.ActionLink("瀏覽菜單", "Index", "Home", null, new { data_icon = "home" })</li>
+
+                @if ((Request.IsAuthenticated == false)
+                    || (!Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("Admin")))
+                {
+                    <li>@{ Html.RenderAction("ShoppingCartCount", "ShoppingCart"); }</li>
+                }
+                @{ if (Request.IsAuthenticated)
+                   {
+                       if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("User"))
+                       {
+                           Html.RenderPartial("_UserMenuList");
+                       }
+                       if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("Admin"))
+                       {
+                           Html.RenderPartial("_AdminMenuList");
+                       }
+
+                   }
+                }
+                </div>
+            <h4>2012 微軟雲端人才培訓B班: Alan</h4>
+        </div>
+    </div>
+
+
+    
+   
+    
+}

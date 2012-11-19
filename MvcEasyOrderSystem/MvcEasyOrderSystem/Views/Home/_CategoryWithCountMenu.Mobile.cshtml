@@ -1,0 +1,14 @@
+﻿@using MvcEasyOrderSystem.ViewModels
+@model List<Group<string, int>>
+
+
+@foreach (var item in Model)
+{
+    <li>
+        @*@Html.ActionLink(string.Format("{0}",@item.Key.ToString()),
+        "ShowByCategory", new {categoryId = item.Id})*@
+
+        <a href="#@item.Key">@item.Key.ToString()</a>
+        <span class="ui-li-count">@item.Value</span>
+    </li>
+}
