@@ -16,6 +16,9 @@ using System.Threading;
 
 namespace MvcEasyOrderSystem.Controllers
 {
+    /// <summary>
+    /// 訂單相關
+    /// </summary>
     [Authorize(Roles="User, Admin")]
     public class OrderController : Controller
     {
@@ -66,6 +69,11 @@ namespace MvcEasyOrderSystem.Controllers
             return View(viewModel);
         }
 
+        /// <summary>
+        /// 購物車選擇購買以後執行的地方
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ProcedToCheckout(CreateOrderViewModel viewModel)
         {
@@ -95,6 +103,13 @@ namespace MvcEasyOrderSystem.Controllers
             return View(viewModel);
         }
 
+        /// <summary>
+        /// 把ProcedToCheckout()傳回來的CreateOrderViewModel轉成對應的Order
+        /// 因為Order可能是「送餐到府」也有可能是「來店取餐」，所以需要做到判斷
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private Order ConvertViewModelToOrder(CreateOrderViewModel viewModel, string userId)
         {
             Order order = new Order()
@@ -127,6 +142,12 @@ namespace MvcEasyOrderSystem.Controllers
             return order;
         }
 
+        /// <summary>
+        /// 把Order對應的OrderDetail轉為ShoppingCartViewModel。
+        /// 主要是當對一個訂單點選「詳細」，裏面OrderDetail其實是使用購物車出現的那種模型
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public ShoppingCartViewModel PopulateOrderDetails(Order order)
         {
             var orderDetials = order.OrderDetial;
@@ -158,7 +179,11 @@ namespace MvcEasyOrderSystem.Controllers
             return viewModel;
         }
 
-        
+        /// <summary>
+        /// 以Ajax的方式調用。在「訂單管理」點下「詳細」的時候調用
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public PartialViewResult OrderDetail(int orderId)
         {
             //TODO: Delete
@@ -191,6 +216,13 @@ namespace MvcEasyOrderSystem.Controllers
             return View(order.ToList());
         }
 
+        /// <summary>
+        /// 提供「訂單記錄」旁邊「訂單分類」點下去的後端工作。
+        /// 目前「使用者」和「管理者」皆是使用這個方法，唯一差別是「管理著」可以看到全部
+        /// 訂單，和更新的動作（使用ViewBage達到）。感覺不是很對的做法，不過因為時間關係。
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult ShowByCollectionMethod(int id = 0)
         {
             var order = orderRepo.GetWithFilterAndOrder((x => x.UserId == User.Identity.Name
@@ -211,6 +243,11 @@ namespace MvcEasyOrderSystem.Controllers
             return View("Index", order);
         }
 
+        /// <summary>
+        /// 和ShowByCollectionMethod()一樣的邏輯，不過這次是爲了「狀態分類」
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult ShowByStatus(int id = 0)
         {
             var order = orderRepo.GetWithFilterAndOrder((x => x.UserId == User.Identity.Name
@@ -231,6 +268,10 @@ namespace MvcEasyOrderSystem.Controllers
             return View("Index", order);
         }
 
+        /// <summary>
+        /// 製作「訂單分類」清單。
+        /// </summary>
+        /// <returns></returns>
         [ChildActionOnly]
         public PartialViewResult CollectionMethodOrderMenu()
         {
@@ -251,6 +292,10 @@ namespace MvcEasyOrderSystem.Controllers
             return PartialView("_ShowMenu", group.ToList());
         }
 
+        /// <summary>
+        /// 製作「狀態分類」清單
+        /// </summary>
+        /// <returns></returns>
         [ChildActionOnly]
         public PartialViewResult StatusOrderMenu()
         {
@@ -283,37 +328,7 @@ namespace MvcEasyOrderSystem.Controllers
             return View(order);
         }
 
-        ////
-        //// GET: /Checkout/Create
-
-        //public ActionResult Create()
-        //{
-        //    ViewBag.CollectionMethodId = new SelectList(db.CollectionMethod, "CollectionMethodId", "CollectionMethodName");
-        //    ViewBag.UserId = new SelectList(db.Customer, "UserId", "FirstName");
-        //    ViewBag.PaymentMethodId = new SelectList(db.PaymentMethod, "PaymentMethodId", "PaymentMethodName");
-        //    ViewBag.StatusId = new SelectList(db.Status, "StatusId", "StatusName");
-        //    return View();
-        //}
-
-        ////
-        //// POST: /Checkout/Create
-
-        //[HttpPost]
-        //public ActionResult Create(Order order)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Order.Add(order);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.CollectionMethodId = new SelectList(db.CollectionMethod, "CollectionMethodId", "CollectionMethodName", order.CollectionMethodId);
-        //    ViewBag.UserId = new SelectList(db.Customer, "UserId", "FirstName", order.UserId);
-        //    ViewBag.PaymentMethodId = new SelectList(db.PaymentMethod, "PaymentMethodId", "PaymentMethodName", order.PaymentMethodId);
-        //    ViewBag.StatusId = new SelectList(db.Status, "StatusId", "StatusName", order.StatusId);
-        //    return View(order);
-        //}
+      
 
         //
         // GET: /Checkout/Edit/5
@@ -332,10 +347,6 @@ namespace MvcEasyOrderSystem.Controllers
             viewModel.Order = order;
             viewModel.StatusId = order.StatusId;
 
-            //ViewBag.CollectionMethodId = new SelectList(db.CollectionMethod, "CollectionMethodId", "CollectionMethodName", order.CollectionMethodId);
-            //ViewBag.UserId = new SelectList(db.Customer, "UserId", "FirstName", order.UserId);
-            //ViewBag.PaymentMethodId = new SelectList(db.PaymentMethod, "PaymentMethodId", "PaymentMethodName", order.PaymentMethodId);
-            //ViewBag.StatusId = new SelectList(db.Status, "StatusId", "StatusName", order.StatusId);
             return View(viewModel);
         }
 

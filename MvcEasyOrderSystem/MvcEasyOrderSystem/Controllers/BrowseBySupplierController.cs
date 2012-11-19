@@ -10,6 +10,11 @@ using MvcEasyOrderSystem.Models.Repositry;
 
 namespace MvcEasyOrderSystem.Controllers
 {
+    /// <summary>
+    /// 這一個Controller沒有被用到，因為目前只有一家Supplier，如果有多家，則需要能夠呈現
+    /// 某一家的相關菜單和資訊，例如使用google map來表示地址。
+    /// </summary>
+    [Authorize(Roles="NoOne")]
     public class BrowseBySupplierController : Controller
     {
         private EOSystemContex db = new EOSystemContex();

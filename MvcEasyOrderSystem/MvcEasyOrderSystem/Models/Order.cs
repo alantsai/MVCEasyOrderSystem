@@ -63,7 +63,7 @@ namespace MvcEasyOrderSystem.Models
         [DisplayName("訂單狀況")]
         public int StatusId { get; set; }
 
-
+        //ComplexType無法為Null
         //public Address? Address { get; set; }
 
         [DisplayName("送貨時間")]

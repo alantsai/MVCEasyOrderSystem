@@ -9,6 +9,10 @@ using MvcEasyOrderSystem.Models;
 
 namespace MvcEasyOrderSystem.Controllers
 {
+    /// <summary>
+    /// 這一個Controller也沒用到。如果使用則是管理者管理會員資料用到。
+    /// </summary>
+    [Authorize(Roles="NoOne")]
     public class CustomerController : Controller
     {
         private EOSystemContex db = new EOSystemContex();

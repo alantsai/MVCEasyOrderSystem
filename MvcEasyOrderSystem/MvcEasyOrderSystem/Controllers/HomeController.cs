@@ -10,6 +10,9 @@ using System.Web.Mvc;
 
 namespace MvcEasyOrderSystem.Controllers
 {
+    /// <summary>
+    /// 主要用來顯示菜單相關
+    /// </summary>
     public class HomeController : Controller
     {
         private IGenericRepository<Meal> mealRepo;
@@ -34,6 +37,10 @@ namespace MvcEasyOrderSystem.Controllers
         {
         }
 
+        /// <summary>
+        /// 分類Menu顯示所有菜的分類和每一分類所擁有的菜
+        /// </summary>
+        /// <returns></returns>
         [ChildActionOnly]
         public PartialViewResult CategoryWithCountMenu()
         {
@@ -48,6 +55,10 @@ namespace MvcEasyOrderSystem.Controllers
             return PartialView("_CategoryWithCountMenu", group.ToList());
         }
 
+        /// <summary>
+        /// 取得銷路最好的10道菜組成一個menu list，點擊及把那道菜加入購物車
+        /// </summary>
+        /// <returns></returns>
         [ChildActionOnly]
         public PartialViewResult Top10BestSale()
         {
@@ -64,7 +75,11 @@ namespace MvcEasyOrderSystem.Controllers
             return PartialView("_Top10BestSale", group.ToList());
         }
 
-
+        /// <summary>
+        /// 搭配JQuery UI的Autocomplete
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
         public ActionResult AutoComplete(string term)
         {
             var mealName = mealRepo.GetWithFilterAndOrder(x => x.MealName.Contains(term))
@@ -88,6 +103,12 @@ namespace MvcEasyOrderSystem.Controllers
             return View(group);
         }
 
+        /// <summary>
+        /// CategoryWithCountMenu()的連接會執行一下Action。如果找到類別裏面的餐多於0件，則使用
+        /// Index的view來顯示，如果找不到餐則回傳使用Index Action。
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
         public ActionResult ShowByCategory(int categoryId = 0)
         {
             var mealList = mealRepo.GetWithFilterAndOrder(meal => meal.CategoryId == categoryId,
@@ -105,7 +126,11 @@ namespace MvcEasyOrderSystem.Controllers
             return View("Index", group);
         }
 
-
+        /// <summary>
+        /// 搜索功能，搭配Ajax調用
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         public PartialViewResult SearchByMealName(string q)
         {
             //TODO: Must be deleted when in actual use

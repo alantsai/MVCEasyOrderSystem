@@ -10,6 +10,9 @@ using System.Web.Mvc;
 
 namespace MvcEasyOrderSystem.Controllers
 {
+    /// <summary>
+    /// 「管理者」用來管理菜單只用
+    /// </summary>
     [Authorize(Roles = "Admin")]
     public class StoreManagementController : Controller
     {
@@ -52,8 +55,7 @@ namespace MvcEasyOrderSystem.Controllers
             return View(viewModel);
         }
 
-        //
-        // POST: /test/Create
+
 
         [HttpPost]
         public ActionResult Create(CreateMealViewModel viewModel)
@@ -128,20 +130,11 @@ namespace MvcEasyOrderSystem.Controllers
             return View(viewModel);
         }
 
-        //
-        // POST: /test/Edit/5
 
         [HttpPost]
         public ActionResult Edit(CreateMealViewModel viewModel)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(meal).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-            //ViewBag.CategoryId = new SelectList(db.Category, "CategoryId", "CategoryName", meal.CategoryId);
-            //ViewBag.SupplierId = new SelectList(db.Supplier, "SupplierId", "CompanyName", meal.SupplierId);
+            
 
             HttpPostedFileBase hpf = Request.Files[0] as HttpPostedFileBase;
 

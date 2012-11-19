@@ -11,6 +11,9 @@ using System.Web.UI.DataVisualization.Charting;
 
 namespace MvcEasyOrderSystem.Controllers
 {
+    /// <summary>
+    /// 用來做報表分析的部份。因為時間有限所以只有做一個。
+    /// </summary>
     [Authorize(Roles = "Admin")]
     public class StatsController : Controller
     {
@@ -50,7 +53,7 @@ namespace MvcEasyOrderSystem.Controllers
             return View(gQuery.ToList());
         }
 
-        public ActionResult GetSaleRankChart()
+        public FileResult GetSaleRankChart()
         {
             var gQuery = (from m in orderDetailRepo.GetWithFilterAndOrder()
                          group m by m.Meal.MealName into g

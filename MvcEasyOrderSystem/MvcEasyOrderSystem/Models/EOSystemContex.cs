@@ -30,6 +30,7 @@ namespace MvcEasyOrderSystem.Models
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
+            //本來要做TBH，但是不知道爲什麽失敗，只好以後在研究
             //modelBuilder.Entity<Order>()
             //    .Map<DeliveryOrder>(s => s.Requires("DiscriminatorCollectionId").HasValue(1))
             //    .Map<CollectionOrder>(s => s.Requires("DiscriminatorCollectionId").HasValue(2))

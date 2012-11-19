@@ -11,7 +11,10 @@ using MvcEasyOrderSystem.BussinessLogic;
 
 namespace MvcEasyOrderSystem.Controllers
 {
-
+    /// <summary>
+    /// 展示和處理購物車的部份
+    /// 這一部份全部搭配BussinessLogin.ShoppingCartLogic來達到目的
+    /// </summary>
     public class ShoppingCartController : Controller
     {
         private IGenericRepository<ShoppingCart> shoppingCartRepo;
@@ -27,7 +30,11 @@ namespace MvcEasyOrderSystem.Controllers
         {
         }
 
-
+        /// <summary>
+        /// 把一個餐加入到購物車
+        /// </summary>
+        /// <param name="mealId"></param>
+        /// <returns></returns>
         public ActionResult AddToCart(int mealId)
         {
             shoppingCartLogic = ShoppingCartLogic.GetShoppingCart(this.HttpContext);

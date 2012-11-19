@@ -8,6 +8,10 @@ using System.Web.Security;
 
 namespace MvcEasyOrderSystem.Models
 {
+    /// <summary>
+    /// 使用了系統自帶的SimpleMembership，只有在註冊的部份加上Customer Model來達到儲存個人
+    /// 資料的地方
+    /// </summary>
     public class UsersContext : DbContext
     {
         public UsersContext()

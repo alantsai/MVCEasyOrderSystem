@@ -9,6 +9,8 @@ namespace MvcEasyOrderSystem.Migrations
     {
         public Configuration()
         {
+            //把自動更新資料庫打開。如果增加的Model在資料庫對應的Table已經存在會出現問題，
+            //這時候記得執行 Add-Migration 然後把裏面的UP()和Down()清空
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
         }

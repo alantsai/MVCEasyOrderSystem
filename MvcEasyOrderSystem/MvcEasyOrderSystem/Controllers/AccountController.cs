@@ -35,6 +35,12 @@ namespace MvcEasyOrderSystem.Controllers
         {
         }
 
+        /// <summary>
+        /// 用來寄email，目前使用Google smtp然後帳號和server都存在webconfig
+        /// </summary>
+        /// <param name="desAddress">寄去的地址</param>
+        /// <param name="title">標題</param>
+        /// <param name="body">內容</param>
         public void SentEmail(string desAddress, string title, string body)
         {
             string smtpServer = ConfigurationManager.AppSettings["SmtpServer"].ToString();
@@ -51,6 +57,11 @@ namespace MvcEasyOrderSystem.Controllers
             client.Send(email, desAddress,title, body);
         }
 
+        /// <summary>
+        /// 把購物車UserId指向真正的UserId
+        /// 在登入的時候執行
+        /// </summary>
+        /// <param name="userId">真正UserId</param>
         public void MigrateShoppingCart(string userId)
         {
             var cart = ShoppingCartLogic.GetShoppingCart(this.HttpContext);
@@ -58,14 +69,22 @@ namespace MvcEasyOrderSystem.Controllers
             Session[ConfigurationManager.AppSettings["UserIdSession"]] = userId;
         }
 
-        //TODO: forget password
         #region ForgetPassword
+
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
+        //TODO：view bug on redirect
+        /// <summary>
+        /// 如果帳號和email都對，就寄一封email含有ResetPasswordToken的信到使用者註冊的信箱
+        /// 最後轉址到輸入Token和新密碼的部份，不過會壞掉。但是如果手動到ResetPassword這一個
+        /// Action則不會。
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         public ActionResult ForgotPassword(ForgetPasswordViewModel viewModel)
@@ -101,6 +120,12 @@ namespace MvcEasyOrderSystem.Controllers
         }
 
         //TODO: Bug when given wrong token
+        /// <summary>
+        /// 用來重設密碼
+        /// </summary>
+        /// <param name="resetToken"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         public ActionResult ResetPassword(string resetToken, string password)
@@ -133,7 +158,11 @@ namespace MvcEasyOrderSystem.Controllers
 
         //
         // POST: /Customer/Edit/5
-
+        /// <summary>
+        /// 修改使用者相關訊息，對應Customer Table
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult EditUserInfo(Customer customer)
         {
@@ -160,6 +189,12 @@ namespace MvcEasyOrderSystem.Controllers
         //
         // POST: /Account/Login
 
+        /// <summary>
+        /// Simplemembership自帶的，不過加上每一次登入需要做MigrateShoppingCart的動作。
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -199,6 +234,11 @@ namespace MvcEasyOrderSystem.Controllers
         //
         // POST: /Account/Register
 
+        /// <summary>
+        /// 增加了需要輸入相關訊息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

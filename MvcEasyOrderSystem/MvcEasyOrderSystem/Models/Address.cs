@@ -8,6 +8,10 @@ using System.Web;
 
 namespace MvcEasyOrderSystem.Models
 {
+    /// <summary>
+    /// ComplexType 會自動放入同一個DB Table，但同時給予OOP裏面更好的調用和定義。
+    /// 不過ComplexType 不允許為Null， 導致訂單地址有關的部份需要在寫一次。
+    /// </summary>
     [ComplexType]
     public class Address
     {
