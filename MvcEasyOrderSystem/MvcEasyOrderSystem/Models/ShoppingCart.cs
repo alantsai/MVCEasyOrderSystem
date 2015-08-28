@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -33,5 +34,9 @@ namespace MvcEasyOrderSystem.Models
         }
 
         public string UserId { get; set; }
+
+        [DisplayName("圖片")]
+        [DataType(DataType.ImageUrl)]
+        public string Image { get; set; }
     }
 }

@@ -17,6 +17,7 @@
                 @Html.DisplayNameFor(model => model.CartItems[0].FullPrice)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
 
@@ -36,6 +37,9 @@
 
                 <td>
                     @Html.DisplayFor(modelItem => item.FullPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Image)
                 </td>
                 <td>
                     @if (ViewBag.ShowEdit == true)
