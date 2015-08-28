@@ -82,6 +82,12 @@ namespace MvcEasyOrderSystem.BussinessLogic
         public IEnumerable<ShoppingCart> GetShoppingCartItems()
         {
             var result = shoppingCartRepo.GetWithFilterAndOrder(x => x.UserId == UserId);
+            foreach (var item in result)
+            {
+                item.Image = (from a in mealRepo.GetWithFilterAndOrder()
+                              where a.MealId == item.MealId
+                              select a).First().Image;
+            }
             return result;
         }
 
