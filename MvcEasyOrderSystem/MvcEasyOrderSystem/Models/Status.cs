@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace MvcEasyOrderSystem.Models
         }
     
         public int StatusId { get; set; }
-        [DisplayName("�q�檬�p")]
+        [DisplayName("訂單狀況")]
         public string StatusName { get; set; }
     
         public virtual ICollection<Order> Order { get; set; }

@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace MvcEasyOrderSystem.Models
     
         public int CollectionMethodId { get; set; }
 
-        [DisplayName("®˙¿\§Ë¶°")]
+        [DisplayName("ÂèñÈ§êÊñπÂºè")]
         public string CollectionMethodName { get; set; }
     
         public virtual ICollection<Order> Order { get; set; }

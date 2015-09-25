@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace MvcEasyOrderSystem.Models
         }
 
         public int PaymentMethodId { get; set; }
-        [DisplayName("�I�ڤ覡")]
+        [DisplayName("付款方式")]
         public string PaymentMethodName { get; set; }
     
         public virtual ICollection<Order> Order { get; set; }

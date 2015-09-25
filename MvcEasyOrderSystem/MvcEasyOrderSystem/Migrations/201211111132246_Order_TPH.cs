@@ -1,4 +1,4 @@
-namespace MvcEasyOrderSystem.Migrations
+﻿namespace MvcEasyOrderSystem.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

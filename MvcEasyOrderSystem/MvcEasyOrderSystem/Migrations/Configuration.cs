@@ -1,4 +1,4 @@
-namespace MvcEasyOrderSystem.Migrations
+ï»¿namespace MvcEasyOrderSystem.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -9,8 +9,8 @@ namespace MvcEasyOrderSystem.Migrations
     {
         public Configuration()
         {
-            //§â¦Û°Ê§ó·s¸ê®Æ®w¥´¶}¡C¦pªG¼W¥[ªºModel¦b¸ê®Æ®w¹ïÀ³ªºTable¤w¸g¦s¦b·|¥X²{°İÃD¡A
-            //³o®É­Ô°O±o°õ¦æ Add-Migration µM«á§âùØ­±ªºUP()©MDown()²MªÅ
+            //æŠŠè‡ªå‹•æ›´æ–°è³‡æ–™åº«æ‰“é–‹ã€‚å¦‚æœå¢åŠ çš„Modelåœ¨è³‡æ–™åº«å°æ‡‰çš„Tableå·²ç¶“å­˜åœ¨æœƒå‡ºç¾å•é¡Œï¼Œ
+            //é€™æ™‚å€™è¨˜å¾—åŸ·è¡Œ Add-Migration ç„¶å¾ŒæŠŠè£é¢çš„UP()å’ŒDown()æ¸…ç©º
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
         }

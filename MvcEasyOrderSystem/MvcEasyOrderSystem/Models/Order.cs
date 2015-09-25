@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -17,73 +17,73 @@ namespace MvcEasyOrderSystem.Models
             this.StatusId = 1;
         }
 
-        [DisplayName("­q³æ½s¸¹")]
+        [DisplayName("è¨‚å–®ç·¨è™Ÿ")]
         public int OrderId { get; set; }
         public string UserId { get; set; }
 
-        [DisplayName("­q³æ®É¶¡")]
+        [DisplayName("è¨‚å–®æ™‚é–“")]
         [DataType( System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public System.DateTime OrderDateTime { get; set; }
 
-        [DisplayName("¹w©w®É¶¡")]
+        [DisplayName("é å®šæ™‚é–“")]
         [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public Nullable<System.DateTime> RequireDateTime { get; set; }
 
-        [DisplayName("§¹¦¨®É¶¡")]
+        [DisplayName("å®Œæˆæ™‚é–“")]
         [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public Nullable<System.DateTime> ReadyDateTime { get; set; }
 
         
-        [DisplayName("ª÷ÃB")]
+        [DisplayName("é‡‘é¡")]
         [DataType(DataType.Currency)]
         public decimal TotalPrice { get; set; }
 
 
-        [DisplayName("³Æµù")]
+        [DisplayName("å‚™è¨»")]
         public string Comment { get; set; }
 
-        [DisplayName("¨ú®ø®É¶¡")]
+        [DisplayName("å–æ¶ˆæ™‚é–“")]
         public Nullable<System.DateTime> CancelDateTime { get; set; }
-        [DisplayName("¨ú®ø­ì¦]")]
+        [DisplayName("å–æ¶ˆåŸå› ")]
         public string Reason { get; set; }
 
 
 
-        [DisplayName("¬O§_¨ú®ø")]
+        [DisplayName("æ˜¯å¦å–æ¶ˆ")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public bool IsCanceled { get; set; }
 
 
-        [DisplayName("¥I¶O¤è¦¡")]
+        [DisplayName("ä»˜è²»æ–¹å¼")]
         public int PaymentMethodId { get; set; }
-        [DisplayName("»â¨ú¤è¦¡")]
+        [DisplayName("é ˜å–æ–¹å¼")]
         public int CollectionMethodId { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [DisplayName("­q³æª¬ªp")]
+        [DisplayName("è¨‚å–®ç‹€æ³")]
         public int StatusId { get; set; }
 
-        //ComplexTypeµLªk¬°Null
+        //ComplexTypeç„¡æ³•ç‚ºNull
         //public Address? Address { get; set; }
 
-        [DisplayName("°e³f®É¶¡")]
+        [DisplayName("é€è²¨æ™‚é–“")]
         public Nullable<System.DateTime> DeliveryStartTime { get; set; }
-        [DisplayName("°e¨ì®É¶¡")]
+        [DisplayName("é€åˆ°æ™‚é–“")]
         public Nullable<System.DateTime> DeliveryEndTime { get; set; }
 
-        [DisplayName("¥«/¿¤")]
+        [DisplayName("å¸‚/ç¸£")]
         public string Address_AddCity { get; set; }
-        [DisplayName("°Ï")]
+        [DisplayName("å€")]
         public string Address_AddDistrict { get; set; }
 
-        [DisplayName("§¹¾ã¦a§}")]
+        [DisplayName("å®Œæ•´åœ°å€")]
         public string Address_AddFull { get; set; }
 
-        [DisplayName("¶l»¼°Ï¸¹")]
+        [DisplayName("éƒµéå€è™Ÿ")]
         public Nullable<int> Address_PostCode { get; set; }
 
 
-        [DisplayName("¨úÀ\®É¶¡")]
+        [DisplayName("å–é¤æ™‚é–“")]
         public Nullable<System.DateTime> CollectDateTime { get; set; }
 
         public virtual CollectionMethod CollectionMethod { get; set; }
